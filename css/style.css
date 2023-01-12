@@ -1,0 +1,237 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+	border: 0;
+	outline: 0;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+*::-webkit-scrollbar {
+    width: 0px;
+}
+html {
+    width: 100%;
+    height: 100%;
+}
+body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #f9f9f9;
+    color: black;
+    font-family: "Work Sans", "Open Sans", sans-serif;
+    font-size: 20px;
+    line-height: 40px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.pageBox{
+    display: none;
+    position: relative;
+    margin: 50px auto;
+    width: 1000px;
+}
+.fixedBox {
+    position: fixed;
+    margin: 0;
+    top: 100px;
+    left: 50%;
+    max-height: 100%;
+    transform: translate(-50%, 0px);
+}
+.warning {
+    display: none;
+    padding: 30px 0;
+    color: #380000;
+}
+.small-dim {
+    color: #222222;
+    font-size: 18px;
+    line-height: 36px;
+}
+
+/*
+ ### #     #  #####  ####### ######  #     #  #####  ####### ### ####### #     #  #####
+  #  ##    # #     #    #    #     # #     # #     #    #     #  #     # ##    # #     #
+  #  # #   # #          #    #     # #     # #          #     #  #     # # #   # #
+  #  #  #  #  #####     #    ######  #     # #          #     #  #     # #  #  #  #####
+  #  #   # #       #    #    #   #   #     # #          #     #  #     # #   # #       #
+  #  #    ## #     #    #    #    #  #     # #     #    #     #  #     # #    ## #     #
+ ### #     #  #####     #    #     #  #####   #####     #    ### ####### #     #  #####
+
+*/
+#instrBox {
+    display: block;
+}
+#instrImg {
+    display: none;
+    position: relative;
+    margin: 0 auto;
+    padding: 50px;
+}
+#instrText{
+    display: block;
+    position: relative;
+}
+.consentInstr {
+    font-size: 20px;
+    line-height: 60px;
+}
+.formArea {
+    margin: 30px auto 0px;
+    padding: 20px;
+    width: 95%;
+    height: 300px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: auto;
+    font-size: 16px;
+    line-height: 25px;
+    background: #a4b9b9;
+}
+.formArea::-webkit-scrollbar {
+    width: 5px;
+}
+.formArea::-webkit-scrollbar-thumb {
+    background: rgb(134, 134, 134);
+}
+/*
+  #####  #     # #######  #####  ####### ### ####### #     #  #####
+ #     # #     # #       #     #    #     #  #     # ##    # #     #
+ #     # #     # #       #          #     #  #     # # #   # #
+ #     # #     # #####    #####     #     #  #     # #  #  #  #####
+ #   # # #     # #             #    #     #  #     # #   # #       #
+ #    #  #     # #       #     #    #     #  #     # #    ## #     #
+  #### #  #####  #######  #####     #    ### ####### #     #  #####
+*/
+.question {
+    margin: 50px 0;
+}
+.option {
+    position: relative;
+    margin: 10px 0;
+    padding: 7px;
+    width: 100%;
+    border-radius: 8px;
+    background: rgb(194, 194, 194);
+    cursor: pointer;
+}
+.option:hover {
+    background: rgb(218, 218, 218);
+}
+.radio {
+    position: absolute;
+    margin: 0;
+    left: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+.option-text {
+    position: relative;
+    left: 28px;
+    width: calc(100% - 28px);
+}
+input[type='number'],
+textarea {
+    background-color: #f5f5f5;
+    padding: 5px;
+    margin: 10px 0;
+    border: solid;
+}
+#comments, #problems {
+    width: 100%;
+    height: 100px;
+}
+#age {
+    width: 50px;
+    height: 28px;
+}
+
+/*
+ #######    #     #####  #    #
+    #      # #   #     # #   #
+    #     #   #  #       #  #
+    #    #     #  #####  ###
+    #    #######       # #  #
+    #    #     # #     # #   #
+    #    #     #  #####  #    #
+                                 */
+
+#taskBox {
+    display: none;
+    position: absolute;
+    width: 80%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+#instrStimBox, #stimuliBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#instrStimBox {
+    display: none;
+}
+#instrStimBox img, #stimuliBox img {
+    width: 100px;
+    height: 100px;
+    border: 2px solid #f9f9f9;
+    box-sizing: border-box;
+    margin: 100px;
+    padding: 5px;
+}
+#stimuliBox img:hover {
+    cursor: pointer;
+    border: solid black;
+}
+#progress, #prompt {
+    text-align: center;
+}
+#bufferBox {
+    display: none;
+}
+/*
+ ######  #     # ####### ####### ####### #     #
+ #     # #     #    #       #    #     # ##    #
+ #     # #     #    #       #    #     # # #   #
+ ######  #     #    #       #    #     # #  #  #
+ #     # #     #    #       #    #     # #   # #
+ #     # #     #    #       #    #     # #    ##
+ ######   #####     #       #    ####### #     #
+ */
+ button {
+    display: block;
+    position: relative;
+    margin: 25px 0px;
+    padding: 5px 40px;
+    font-size: 16px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 4px;
+    background-color: #9D8F8F;
+    outline: none;
+    color: black;
+    cursor: pointer;
+}
+button:hover {
+    background: #625757;
+    color: #ececec;
+}
+#instrNextBut{
+    left: 100%;
+    transform: translate(-100%, 0px);
+}
+#instrQSubmitBut, #debQSubmit, #endExptBut {
+    left: 50%;
+    transform: translate(-50%, 0px);
+}
+#trialNextBut {
+    display: none;
+    left: 100%;
+    transform: translate(-100%, 0px);
+}
+
