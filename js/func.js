@@ -85,22 +85,6 @@ function shuffle_array(input_array) {
 //  #     # #     # #    ##    #    #       #    ##    #
 //   #####  ####### #     #    #    ####### #     #    #
 
-function import_json(activeTrial, num){
-    let exptVer = num % EXPT_N;
-
-    if (exptVer == 0)
-        exptVer = EXPT_N;
-
-    fetch("./input/expt" + String(exptVer) + ".json")
-        .then(response => {
-            return response.json();
-            })
-            .then(data => {
-                activeTrial.trialInput = data;
-                activeTrial.trialN = Object.keys(activeTrial.trialInput).length;
-            });
-}
-
 function enter_fullscreen() {
     let el = document.documentElement;
     if (el.requestFullscreen) {
