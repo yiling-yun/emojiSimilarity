@@ -80,16 +80,232 @@
     <!--======== TASK ========-->
     <div class="pageBox" id="taskBox">
         <p id="progress"></p>
-        <p id="prompt">Please select the odd-one-out emoji.</p>
         <div id="stimuliBox">
-            <img id="leftEmoji" src="stim/blank.png" onclick=SELECT(this) alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'>
-            <img id="middleEmoji" src="stim/blank.png" onclick=SELECT(this) alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'>
-            <img id="rightEmoji" src="stim/blank.png" onclick=SELECT(this) alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'>
+            <div id="allDimensionsContainer">
+                <p id="dimension">
+                    Visual complexity refers to the emoji’s visual features, not to the features of the concept to which it refers. The more visual features the emoji contains, the more visually complex it can be considered to be.
+                </p>
+                <div class="dimensionContainer" id="firstEmojiContainer">
+                    <img id="firstEmoji" src="stim/blank.png" alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'/>
+                    <p class="scaleDescription lowerScale">very simple</p>
+                    <div class="scaleContainer">
+                        <div class="inline-block">
+                            <label>1<br/>
+                                <input type="radio" name="rating1" value="1" />
+                            </label>    
+                        </div>
+                        <div class="inline-block">
+                            <label>2<br/>
+                                <input type="radio" name="rating1" value="2" />
+                            </label>
+                        </div>
+                        <div class="inline-block">
+                            <label>3<br/>
+                                <input type="radio" name="rating1" value="3" />
+                            </label>
+                        </div>
+                        <div class="inline-block">
+                            <label>4<br/>
+                                <input type="radio" name="rating1" value="4" />
+                            </label>
+                        </div>
+                        <div class="inline-block">
+                            <label>5<br/>
+                                <input type="radio" name="rating1" value="5" />
+                            </label>
+                        </div>
+                        <div class="inline-block">
+                            <label>6<br/>
+                                <input type="radio" name="rating1" value="6" />
+                            </label>
+                        </div>
+                        <div class="inline-block">
+                            <label>7<br/>
+                                <input type="radio" name="rating1" value="7" />
+                            </label>
+                        </div>
+                    </div>
+                    <p class="scaleDescription upperScale">very complex</p>
+                </div>
+                <div class="dimensionContainer" id="secondEmojiContainer">
+                    <img id="secondEmoji" src="stim/blank.png" alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'/>
+                    <p class="scaleDescription lowerScale">very simple</p>
+                    <div class="scaleContainer">
+                        <div class="inline-block">
+                            <label>1<br/>
+                                <input type="radio" name="rating2" value="1" />
+                            </label>    
+                        </div>
+                        <div class="inline-block">
+                            <label>2<br/>
+                                <input type="radio" name="rating2" value="2" />
+                            </label>
+                        </div>
+                        <div class="inline-block">
+                            <label>3<br/>
+                                <input type="radio" name="rating2" value="3" />
+                            </label>
+                        </div>
+                        <div class="inline-block">
+                            <label>4<br/>
+                                <input type="radio" name="rating2" value="4" />
+                            </label>
+                        </div>
+                        <div class="inline-block">
+                            <label>5<br/>
+                                <input type="radio" name="rating2" value="5" />
+                            </label>
+                        </div>
+                        <div class="inline-block">
+                            <label>6<br/>
+                                <input type="radio" name="rating2" value="6" />
+                            </label>
+                        </div>
+                        <div class="inline-block">
+                            <label>7<br/>
+                                <input type="radio" name="rating2" value="7" />
+                            </label>
+                        </div>
+                    </div>
+                    <p class="scaleDescription upperScale">very complex</p>
+                </div>
+                <div class="dimensionContainer" id="thirdEmojiContainer">
+                    <img id="thirdEmoji" src="stim/blank.png" alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'/>
+                    <p class="scaleDescription lowerScale">very simple</p>
+                    <div class="scaleContainer">
+                        <div class="inline-block">
+                            <label>1<br/>
+                                <input type="radio" name="rating3" value="1" />
+                            </label>    
+                        </div>
+                        <div class="inline-block">
+                            <label>2<br/>
+                                <input type="radio" name="rating3" value="2" />
+                            </label>
+                        </div>
+                        <div class="inline-block">
+                            <label>3<br/>
+                                <input type="radio" name="rating3" value="3" />
+                            </label>
+                        </div>
+                        <div class="inline-block">
+                            <label>4<br/>
+                                <input type="radio" name="rating3" value="4" />
+                            </label>
+                        </div>
+                        <div class="inline-block">
+                            <label>5<br/>
+                                <input type="radio" name="rating3" value="5" />
+                            </label>
+                        </div>
+                        <div class="inline-block">
+                            <label>6<br/>
+                                <input type="radio" name="rating3" value="6" />
+                            </label>
+                        </div>
+                        <div class="inline-block">
+                            <label>7<br/>
+                                <input type="radio" name="rating3" value="7" />
+                            </label>
+                        </div>
+                    </div>
+                    <p class="scaleDescription upperScale">very complex</p>
+                </div>
+                <div class="dimensionContainer" id="fourthEmojiContainer">
+                    <img id="fourthEmoji" src="stim/blank.png" alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'/>
+                    <p class="scaleDescription lowerScale">very simple</p>
+                    <div class="scaleContainer">
+                        <div class="inline-block">
+                            <label>1<br/>
+                                <input type="radio" name="rating4" value="1" />
+                            </label>    
+                        </div>
+                        <div class="inline-block">
+                            <label>2<br/>
+                                <input type="radio" name="rating4" value="2" />
+                            </label>
+                        </div>
+                        <div class="inline-block">
+                            <label>3<br/>
+                                <input type="radio" name="rating4" value="3" />
+                            </label>
+                        </div>
+                        <div class="inline-block">
+                            <label>4<br/>
+                                <input type="radio" name="rating4" value="4" />
+                            </label>
+                        </div>
+                        <div class="inline-block">
+                            <label>5<br/>
+                                <input type="radio" name="rating4" value="5" />
+                            </label>
+                        </div>
+                        <div class="inline-block">
+                            <label>6<br/>
+                                <input type="radio" name="rating4" value="6" />
+                            </label>
+                        </div>
+                        <div class="inline-block">
+                            <label>7<br/>
+                                <input type="radio" name="rating4" value="7" />
+                            </label>
+                        </div>
+                    </div>
+                    <p class="scaleDescription upperScale">very complex</p>
+                </div>    
+            </div>
+            <div id="clarityContainer">
+                <p>Clarity refers to the relationship between the emoji and its meaning.</p>
+                <img id="clarityEmoji" src="stim/blank.png" alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'/>
+                <p id="emojiDefinition">Meaning:</p>
+                <div class="dimensionContainer">
+                    <p class="scaleDescription">The emoji does not represent the meaning at all</p>
+                    <div class="scaleContainer">
+                        <div class="inline-block">
+                            <label>1<br/>
+                                <input type="radio" name="rating5" value="1" />
+                            </label>    
+                        </div>
+                        <div class="inline-block">
+                            <label>2<br/>
+                                <input type="radio" name="rating5" value="2" />
+                            </label>
+                        </div>
+                        <div class="inline-block">
+                            <label>3<br/>
+                                <input type="radio" name="rating5" value="3" />
+                            </label>
+                        </div>
+                        <div class="inline-block">
+                            <label>4<br/>
+                                <input type="radio" name="rating5" value="4" />
+                            </label>
+                        </div>
+                        <div class="inline-block">
+                            <label>5<br/>
+                                <input type="radio" name="rating5" value="5" />
+                            </label>
+                        </div>
+                        <div class="inline-block">
+                            <label>6<br/>
+                                <input type="radio" name="rating5" value="6" />
+                            </label>
+                        </div>
+                        <div class="inline-block">
+                            <label>7<br/>
+                                <input type="radio" name="rating5" value="7" />
+                            </label>
+                        </div>
+                    </div>
+                    <p class="scaleDescription">The emoji represents the meaning very well</p>
+                </div>
+            </div>
         </div>
         <div id="bufferBox">
-            <img id="leftEmojiBuffer" src="stim/blank.png" alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'>
-            <img id="middleEmojiBuffer" src="stim/blank.png" alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'>
-            <img id="rightEmojiBuffer" src="stim/blank.png" alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'>
+            <img id="firstEmojiBuffer" src="stim/blank.png" alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'/>
+            <img id="secondEmojiBuffer" src="stim/blank.png" alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'/>
+            <img id="thirdEmojiBuffer" src="stim/blank.png" alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'/>
+            <img id="fourthEmojiBuffer" src="stim/blank.png" alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'/>
         </div>
         <button class="instrBut" id="trialNextBut" onclick=NEXT_TRIAL()>NEXT</button>
     </div>
