@@ -21,21 +21,70 @@ const ONE_EMOJI_EXAMPLE = "3.png";
 const THREE_EMOJI_EXAMPLE = ["71.png", "3.png", "888.png"];
 const DIFF_EMOJIS = ["514.png", "659.png", "1021.png", "866.png", "918.png", "134.png", "1552.png"];
 const PRAC_STIM_PATH = STIM_PATH + 'test/';
+const DIMENSIONS = [
+    "Visual complexity refers to the emoji’s visual features, not to the features of the concept to which it refers. The more visual features the emoji contains, the more visually complex it can be considered to be.",
+    "Familiarity refers to how often the participant encounters or sees the emoji in his/her daily life. Emojis encountered more frequently are, therefore, more familiar.",
+    "Frequency of use refers to how often the participant uses the emoji.",
+    // "Emotional valence refers to the extent to which the emoji denotes something negative/unpleasant or something positive/pleasant.",
+    // "Emotional arousal refers to the extent to which the emoji denotes something passive/calm or something arousing/exciting.",
+    // "In your opinion, considering the visual characteristics of the symbol, and not the object or concept it may depict, how visually appealing is the stimulus?"
+];
+const LOWER_SCALE = [
+    "very simple",
+    "very unfamiliar",
+    "I never use the emoji",
+    // "Very negative",
+    // "Very passive/calm",
+    // "Visually unpleasant/unappealing"
+];
+const UPPER_SCALE = [
+    "very complex",
+    "very familiar",
+    "I use the emoji very often",
+    // "Very positive",
+    // "Very arousing/exciting",
+    // "Visually very pleasant/appealing"
+]
 const PRAC_TRIAL_INPUT = {
-    "0": [1, 4, 895],
-    "1": [1391, 1395, 1024],
-    "2": [548, 541, 516]
+    "0": 1,
+    "1": 4,
+    "2": 32,
+    "3": 35
 };
+const NUM_DIMENSIONS = DIMENSIONS.length;
+const EMOJIS_PER_PAGE = 4;
 const TEST_STIM_PATH = STIM_PATH + 'test/';
 //xxx: uncommented the following section for testing purposes
-const TRIAL_INPUT = {
-    "0": ["545", "289", "1298"],
-    "1": ["992", "331", "855"],
-    "2": ["1020", "159", "720"],
-    "3": ["331", "1223", "545"],
-    "4": ["720", "1206", "245"],
-    "5": ["1141", "1140", "68"]
+let TRIAL_INPUT = {
+    "0": 1,
+    "1": 4,
+    "2": 32,
+    "3": 35,
+    "4": 68,
+    "5": 70,
+    "6": 108,
+    // "7": 128,
 };
+
+// sort emoji orders
+for (let i = 0; i < Object.keys(TRIAL_INPUT).length; i++) {
+    j = Math.floor(Math.random() * (i + 1));
+    let temp = TRIAL_INPUT[i];
+    TRIAL_INPUT[i] = TRIAL_INPUT[j]
+    TRIAL_INPUT[j] = temp;
+}
+
+const EMOJI_DEFINITIONS = {
+    "1": "General pleasure and good cheer or humor",
+    "4": "Radiant, gratified happiness",
+    "32": "Questioning or scorning something or someone",
+    "35": "Mildly irritated or concerned",
+    "68": "Feeling unsure",
+    "70": "Mildly concerned, disappointed, or sad",
+    "108": "Grinning cat",
+    "128": "Love is in the air"
+};
+
 //xxx: ignore the following commented part
 // // const exptVerToManuallyAssign = [6, 19, 20, 23, 24, 39, 43, 21, 27, 36, 37, 38, 18];
 // // const subjNumBefore = 51;
@@ -216,23 +265,32 @@ instr_text[15] = "";
 instr_text[16] = "Great! You can press SPACE to start. Please focus after you start. (Don't switch to other windows or tabs!).<br><br>Please try your best, but please also know that this task is supposed to be hard; so don't worry if you find it difficult!";
 
 const INSTR_FUNC_DICT = {
+    // 0: SHOW_INSTR,
+    // 1: SHOW_INSTR,
+    // 2: SHOW_INSTR,
+    // 3: SHOW_MAXIMIZE_WINDOW,
+    // 4: SHOW_NO_MUSIC,
+    // 5: SHOW_ONE_EMOJI,
+    // 6: SHOW_THREE_EMOJIS,
+    // 7: SHOW_INSTR,
+    // 8: SHOW_INSTR,
+    // 9: HIDE_EMOJIS,
+    // 10: SHOW_DIFF_EMOJIS,
+    // 11: HIDE_EMOJIS,
+    // 12: SHOW_TASK,
+    // 13: SHOW_INSTR,
+    // 14: SHOW_INSTR,
+    // 15: SHOW_INSTR_QUIZ,
+    // 16: SHOW_CONSENT
     0: SHOW_INSTR,
-    1: SHOW_INSTR,
-    2: SHOW_INSTR,
-    3: SHOW_MAXIMIZE_WINDOW,
-    4: SHOW_NO_MUSIC,
-    5: SHOW_ONE_EMOJI,
-    6: SHOW_THREE_EMOJIS,
-    7: SHOW_INSTR,
-    8: SHOW_INSTR,
-    9: HIDE_EMOJIS,
-    10: SHOW_DIFF_EMOJIS,
-    11: HIDE_EMOJIS,
-    12: SHOW_TASK,
-    13: SHOW_INSTR,
-    14: SHOW_INSTR,
-    15: SHOW_INSTR_QUIZ,
-    16: SHOW_CONSENT
+    // 1: SHOW_MAXIMIZE_WINDOW,
+    1: SHOW_ONE_EMOJI,
+    2: HIDE_EMOJIS,
+    3: SHOW_TASK,
+    4: SHOW_INSTR,
+    5: SHOW_INSTR,
+    6: SHOW_INSTR_QUIZ,
+    7: SHOW_CONSENT
 };
 
 
@@ -293,9 +351,12 @@ function HIDE_EMOJIS() {
 function SHOW_TASK() {
     subj.detectVisibilityStart();
     $('#instrBox').hide();
+    $('#allDimensionsContainer').show();
+    $('#clarityContainer').hide();
     activeTrial.randomizedExptIDList = shuffle_array(Object.keys(activeTrial.trialInput));
     INIT_TRIAL();
     $('#taskBox').show();
+    CLEAR_RADIO_BUTTONS();
 }
 
 function SHOW_INSTR_QUIZ() {
@@ -380,17 +441,74 @@ function INIT_TRIAL(){
     //buffer first trial
     if (activeTrial.trialIndex == 0) {
         let bufferExptID = activeTrial.randomizedExptIDList[activeTrial.trialIndex];
-        leftEmojiBuffer = activeTrial.trialInput[bufferExptID][0];
-        middleEmojiBuffer = activeTrial.trialInput[bufferExptID][1];
-        rightEmojiBuffer = activeTrial.trialInput[bufferExptID][2];
-        $('#leftEmojiBuffer').attr('src', activeTrial.stimPath + leftEmojiBuffer +'.png');
-        $('#middleEmojiBuffer').attr('src', activeTrial.stimPath + middleEmojiBuffer +'.png');
-        $('#rightEmojiBuffer').attr('src', activeTrial.stimPath + rightEmojiBuffer +'.png');
+        let emojiIndex = EMOJIS_PER_PAGE * bufferExptID;
+        LOAD_BUFFERS(emojiIndex);
+        $("#trialNextBut").hide();
     }
 
     //load trial
     UPDATE_INTERFACE();
     activeTrial.startTime = Date.now();
+}
+
+function LOAD_BUFFERS(emojiIndex) {
+    if (emojiIndex < activeTrial.numEmojis) {
+        firstEmojiBuffer = activeTrial.trialInput[emojiIndex];
+        $('#firstEmojiBuffer').attr('src', activeTrial.stimPath + firstEmojiBuffer +'.png');
+    }
+
+    if (1 + emojiIndex < activeTrial.numEmojis) {
+        secondEmojiBuffer = activeTrial.trialInput[1 + emojiIndex];
+        $('#secondEmojiBuffer').attr('src', activeTrial.stimPath + secondEmojiBuffer +'.png');
+    }
+
+    if (2 + emojiIndex < activeTrial.numEmojis) {
+        thirdEmojiBuffer = activeTrial.trialInput[2 + emojiIndex];
+        $('#thirdEmojiBuffer').attr('src', activeTrial.stimPath + thirdEmojiBuffer +'.png');
+    }
+
+    if (3 + emojiIndex < activeTrial.numEmojis) {
+        fourthEmojiBuffer = activeTrial.trialInput[3 + emojiIndex];
+        $('#fourthEmojiBuffer').attr('src', activeTrial.stimPath + fourthEmojiBuffer +'.png');
+    }
+}
+
+function LOAD_EMOJIS (emojiIndex) {
+    if (emojiIndex < activeTrial.numEmojis) {
+        firstEmoji = activeTrial.trialInput[emojiIndex];
+        $('#firstEmoji').attr('src', activeTrial.stimPath + firstEmoji +'.png');
+        $('#firstEmojiContainer').show();
+    }
+    else {
+        $('#firstEmojiContainer').hide();
+    }
+
+    if (1 + emojiIndex < activeTrial.numEmojis) {
+        secondEmoji = activeTrial.trialInput[1 + emojiIndex];
+        $('#secondEmoji').attr('src', activeTrial.stimPath + secondEmoji +'.png');
+        $('#secondEmojiContainer').show();
+    }
+    else {
+        $('#secondEmojiContainer').hide();
+    }
+
+    if (2 + emojiIndex < activeTrial.numEmojis) {
+        thirdEmoji = activeTrial.trialInput[2 + emojiIndex];
+        $('#thirdEmoji').attr('src', activeTrial.stimPath + thirdEmoji +'.png');
+        $('#thirdEmojiContainer').show();
+    }
+    else {
+        $('#thirdEmojiContainer').hide();
+    }
+
+    if (3 + emojiIndex < activeTrial.numEmojis) {
+        fourthEmoji = activeTrial.trialInput[3 + emojiIndex];
+        $('#fourthEmoji').attr('src', activeTrial.stimPath + fourthEmoji +'.png');
+        $('#fourthEmojiContainer').show();
+    }
+    else {
+        $('#fourthEmojiContainer').hide();
+    }
 }
 
 function SELECT(ele) {
@@ -404,63 +522,122 @@ function SELECT(ele) {
     choice = activeTrial[choicePos];
     activeTrial.choicePos = choicePos;
     activeTrial.choice = choice;
-
-    //show border to indicate selection
-    $("#stimuliBox img").css("border", "#f9f9f9"); //prevent selecting multiple
-    $(ele).css("border", "solid black");
-
     //enable to proceed to the next trial
     $("#trialNextBut").show(); //xxx: (Pro: no easy get through the trials) alt: press SPACE BAR (Pro: no visual bias)
 }
 
+var radioButtons = $("input[type='radio']");
+radioButtons.click(() => {
+    const rating1Checked = $('input[name="rating1"]').is(":checked");
+    const rating2Checked = $('input[name="rating2"]').is(":checked");
+    const rating3Checked = $('input[name="rating3"]').is(":checked");
+    const rating4Checked = $('input[name="rating4"]').is(":checked");
+    if (
+        (rating1Checked || $('#firstEmojiContainer').is(":hidden")) &&
+        (rating2Checked || $('#secondEmojiContainer').is(":hidden")) &&
+        (rating3Checked || $('#thirdEmojiContainer').is(":hidden")) &&
+        (rating4Checked || $('#fourthEmojiContainer').is(":hidden"))
+    ) {
+        SELECT(this);
+    }
+
+    const ratingClarityChecked = $('input[name="rating5"]').is(":checked");
+    if (ratingClarityChecked) {
+        SELECT(this);
+    }
+});
+
+function CLEAR_RADIO_BUTTONS() {
+    $('input[name="rating1"]').prop("checked", false);
+    $('input[name="rating2"]').prop("checked", false);
+    $('input[name="rating3"]').prop("checked", false);
+    $('input[name="rating4"]').prop("checked", false);
+    $('input[name="rating5"]').prop("checked", false);
+}
+
 function NEXT_TRIAL() {
-    //save current trial data
-    var dataList = list_from_attribute_names(activeTrial, activeTrial.titles);
-    activeTrial.allData += list_to_formatted_string(dataList, ";");
+    activeTrial.dimensionIndex = activeTrial.dimensionIndex + 1;
 
-    //update trialIndex
-    activeTrial.trialIndex = activeTrial.trialIndex + 1;
+    activeTrial.exptId = activeTrial.trialIndex;
+    let emojiIndex = EMOJIS_PER_PAGE * activeTrial.exptId + activeTrial.dimensionIndex - NUM_DIMENSIONS;
 
-    //update interface if there is more trials
-    if (activeTrial.trialIndex < activeTrial.trialN) {
+    // go to next set of emojis
+    if (activeTrial.dimensionIndex - NUM_DIMENSIONS >= EMOJIS_PER_PAGE || emojiIndex >= activeTrial.numEmojis) {
+        //save current trial data
+        var dataList = list_from_attribute_names(activeTrial, activeTrial.titles);
+        activeTrial.allData += list_to_formatted_string(dataList, ";");
+
+        //update trialIndex
+        activeTrial.trialIndex = activeTrial.trialIndex + 1;
+
+        //update interface if there is more trials
+        if (activeTrial.trialIndex < activeTrial.trialN) {
+            $("#stimuliBox").hide();
+            $("#trialNextBut").hide();
+            $('#allDimensionsContainer').show();
+            $('#clarityContainer').hide();    
+            activeTrial.dimensionIndex = 0;
+            CLEAR_RADIO_BUTTONS();
+            setTimeout(INIT_TRIAL, activeTrial.intertrialInterval);
+        }
+        //end
+        else {
+            $("#trialNextBut").hide();
+            $("#taskBox").hide();
+            // this is to check that the data is correct when saved
+            // console.log(activeTrial.allData);
+            activeTrial.save();
+            subj.detectVisibilityEnd();
+            if (activeTrial.trialType == "practice") {
+                $("#instrBox").show();
+                instr.next();
+            } else {
+                $("#questionsBox").show();
+            }
+        }
+    }
+    else if (activeTrial.dimensionIndex >= NUM_DIMENSIONS) {
+        // set up clarity questions
         $("#stimuliBox").hide();
         $("#trialNextBut").hide();
+        $('#allDimensionsContainer').hide();
+        $('#clarityContainer').show();
+        clarityEmoji = activeTrial.trialInput[emojiIndex];
+        $('#clarityEmoji').attr('src', activeTrial.stimPath + clarityEmoji +'.png');
+        $('#emojiDefinition').text("Meaning: " + EMOJI_DEFINITIONS[activeTrial.trialInput[emojiIndex]]);
+        CLEAR_RADIO_BUTTONS();
         setTimeout(INIT_TRIAL, activeTrial.intertrialInterval);
     }
-    //end
     else {
-        $("#trialNextBut").hide();
-        $("#taskBox").hide();
-        activeTrial.save();
-        subj.detectVisibilityEnd();
-        if (activeTrial.trialType == "practice") {
-            $("#instrBox").show();
-            instr.next();
-        } else {
-            $("#questionsBox").show();
-        }
+        // go to next dimension
+        // if (activeTrial.trialIndex < activeTrial.trialN) {
+            $("#stimuliBox").hide();
+            $("#trialNextBut").hide();
+            $("#dimension").text(DIMENSIONS[activeTrial.dimensionIndex]);
+            $(".lowerScale").text(LOWER_SCALE[activeTrial.dimensionIndex]);
+            $(".upperScale").text(UPPER_SCALE[activeTrial.dimensionIndex]);
+            CLEAR_RADIO_BUTTONS();
+            setTimeout(INIT_TRIAL, activeTrial.intertrialInterval);
+        // }
     }
 }
 
 function UPDATE_INTERFACE() {
     //update stimuli
-    activeTrial.exptId = activeTrial.randomizedExptIDList[activeTrial.trialIndex];
-    activeTrial.leftEmoji = activeTrial.trialInput[activeTrial.exptId][0];
-    activeTrial.middleEmoji = activeTrial.trialInput[activeTrial.exptId][1];
-    activeTrial.rightEmoji = activeTrial.trialInput[activeTrial.exptId][2];
-    $('#leftEmoji').attr('src', activeTrial.stimPath + activeTrial.leftEmoji +'.png');
-    $('#middleEmoji').attr('src', activeTrial.stimPath + activeTrial.middleEmoji +'.png');
-    $('#rightEmoji').attr('src', activeTrial.stimPath + activeTrial.rightEmoji +'.png');
+    activeTrial.exptId = activeTrial.trialIndex;
+    let emojiIndex = EMOJIS_PER_PAGE * activeTrial.exptId;
+    LOAD_EMOJIS(emojiIndex);
+
+    $("#dimension").text(DIMENSIONS[activeTrial.dimensionIndex]);
+    $(".lowerScale").text(LOWER_SCALE[activeTrial.dimensionIndex]);
+    $(".upperScale").text(UPPER_SCALE[activeTrial.dimensionIndex]);
+    $("#trialNextBut").hide();
 
     //buffer next trial
     if (activeTrial.trialIndex + 1 < activeTrial.trialN){
-        let bufferExptID = activeTrial.randomizedExptIDList[activeTrial.trialIndex + 1];
-        leftEmojiBuffer = activeTrial.trialInput[bufferExptID][0];
-        middleEmojiBuffer = activeTrial.trialInput[bufferExptID][1];
-        rightEmojiBuffer = activeTrial.trialInput[bufferExptID][2];
-        $('#leftEmojiBuffer').attr('src', activeTrial.stimPath + leftEmojiBuffer +'.png');
-        $('#middleEmojiBuffer').attr('src', activeTrial.stimPath + middleEmojiBuffer +'.png');
-        $('#rightEmojiBuffer').attr('src', activeTrial.stimPath + rightEmojiBuffer +'.png');
+        let bufferExptID = activeTrial.trialIndex + 1;
+        let bufferEmojiIndex = 4 * bufferExptID;
+        LOAD_BUFFERS(bufferEmojiIndex); 
     }
 
     //update interface structure
@@ -468,6 +645,8 @@ function UPDATE_INTERFACE() {
     $("#stimuliBox").show();
 };
 
+// list of variables to be save, the variable names
+// trialobject uses these strings to get the variables in the code
 const TRIAL_TITLES = [
     "subjNum",
     "subjStartDate",

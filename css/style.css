@@ -2,8 +2,8 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-	border: 0;
-	outline: 0;
+    border: 0;
+    outline: 0;
     overflow-y: scroll;
     scrollbar-width: none;
 }
@@ -28,7 +28,7 @@ body {
     -ms-user-select: none;
     user-select: none;
 }
-.pageBox{
+.pageBox {
     display: none;
     position: relative;
     margin: 50px auto;
@@ -72,7 +72,7 @@ body {
     margin: 0 auto;
     padding: 50px;
 }
-#instrText{
+#instrText {
     display: block;
     position: relative;
 }
@@ -107,7 +107,7 @@ body {
  #    #  #     # #       #     #    #     #  #     # #    ## #     #
   #### #  #####  #######  #####     #    ### ####### #     #  #####
 */
-.question {
+#dimension {
     margin: 50px 0;
 }
 .option {
@@ -135,14 +135,15 @@ body {
     left: 28px;
     width: calc(100% - 28px);
 }
-input[type='number'],
+input[type="number"],
 textarea {
     background-color: #f5f5f5;
     padding: 5px;
     margin: 10px 0;
     border: solid;
 }
-#comments, #problems {
+#comments,
+#problems {
     width: 100%;
     height: 100px;
 }
@@ -168,32 +169,79 @@ textarea {
     left: 50%;
     transform: translate(-50%, 0%);
 }
-#instrStimBox, #stimuliBox {
+#instrStimBox,
+#stimuliBox {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 #instrStimBox {
     display: none;
 }
-#instrStimBox img, #stimuliBox img {
+#instrStimBox img,
+#stimuliBox img {
     width: 100px;
     height: 100px;
     border: 2px solid #f9f9f9;
     box-sizing: border-box;
-    margin: 100px;
+    margin: 20px;
     padding: 5px;
 }
 #stimuliBox img:hover {
     cursor: pointer;
     border: solid black;
 }
-#progress, #prompt {
+#progress,
+#prompt {
     text-align: center;
 }
 #bufferBox {
     display: none;
 }
+.dimensionContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 1100px;
+}
+.question {
+    width: 1100px;
+    margin: 10px;
+    justify-content: center;
+}
+.scaleDescription {
+    width: 300px;
+    justify-content: center;
+    text-align: center;
+}
+.scaleContainer {
+    display: inline-block;
+    width: 300px;
+    justify-content: center;
+    text-align: center;
+}
+.inline-block {
+    display: inline-block;
+}
+label {
+    display: block;
+    text-align: center;
+    margin: 0 0.2em;
+}
+input[type="radio"] {
+    display: block;
+    margin: 0.5em auto;
+}
+#emojiDefinition {
+    margin: 20px;
+}
+#clarityContainer {
+    text-align: center;
+    display: none;
+}
+
 /*
  ######  #     # ####### ####### ####### #     #
  #     # #     #    #       #    #     # ##    #
@@ -203,7 +251,7 @@ textarea {
  #     # #     #    #       #    #     # #    ##
  ######   #####     #       #    ####### #     #
  */
- button {
+button {
     display: block;
     position: relative;
     margin: 25px 0px;
@@ -212,7 +260,7 @@ textarea {
     line-height: 40px;
     text-align: center;
     border-radius: 4px;
-    background-color: #9D8F8F;
+    background-color: #9d8f8f;
     outline: none;
     color: black;
     cursor: pointer;
@@ -221,11 +269,13 @@ button:hover {
     background: #625757;
     color: #ececec;
 }
-#instrNextBut{
+#instrNextBut {
     left: 100%;
     transform: translate(-100%, 0px);
 }
-#instrQSubmitBut, #debQSubmit, #endExptBut {
+#instrQSubmitBut,
+#debQSubmit,
+#endExptBut {
     left: 50%;
     transform: translate(-50%, 0px);
 }
@@ -234,4 +284,3 @@ button:hover {
     left: 100%;
     transform: translate(-100%, 0px);
 }
-
