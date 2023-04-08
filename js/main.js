@@ -1,4 +1,4 @@
-const FORMAL = true;
+const FORMAL = false;
 const EXPERIMENT_NAME = "emoji";
 const VISIT_FILE = 'visit_' + EXPERIMENT_NAME + '.txt';
 const SUBJ_NUM_FILE = 'subjNum_' + EXPERIMENT_NAME + '.txt';
