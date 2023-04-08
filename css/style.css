@@ -176,21 +176,18 @@ textarea {
     align-items: center;
     justify-content: center;
 }
+
 #instrStimBox {
     display: none;
 }
 #instrStimBox img,
-#stimuliBox img {
+#emojiImg {
     width: 100px;
     height: 100px;
     border: 2px solid #f9f9f9;
     box-sizing: border-box;
     margin: 20px;
     padding: 5px;
-}
-#stimuliBox img:hover {
-    cursor: pointer;
-    border: solid black;
 }
 #progress,
 #prompt {
@@ -199,47 +196,74 @@ textarea {
 #bufferBox {
     display: none;
 }
-.dimensionContainer {
+#dimensionQuestion {
+    width: 1100px;
+    justify-content: center;
+}
+
+#allDimensionsContainer {
+    display: grid;
+    text-align: center;
+    justify-self: center; /* all child elements will inherit this style */
+    grid-template-columns: 100px 150px 550px 150px 150px;
+    /* grid-template-rows: 140px 100px 100px 100px; */
+    grid-auto-rows: 140px 100px 100px 100px;
+}
+
+#stimuliBox input[type="radio"] {
+    width: 15px;
+    justify-self: center;
+}
+
+#scaleNumbersContainer {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width: 1100px;
+    flex-grow: 1;
+    width: 100%;
 }
-.question {
-    width: 1100px;
-    margin: 10px;
-    justify-content: center;
+#stimuliBox ul li {
+    display: inline;
+    flex-grow: 1;
+    text-align: center;
 }
+
 .scaleDescription {
-    width: 300px;
-    justify-content: center;
-    text-align: center;
+    justify-self: center;
 }
+/* allow all radio buttons to spread out evenly */
 .scaleContainer {
-    display: inline-block;
-    width: 300px;
-    justify-content: center;
-    text-align: center;
+    display: flex;
 }
-.inline-block {
-    display: inline-block;
+.scaleContainer input[type="radio"] {
+    margin: auto; /* have all radio buttons space out */
 }
-label {
-    display: block;
-    text-align: center;
-    margin: 0 0.2em;
+
+/* move item to the bottom of the grid container */
+.bottomOfGrid {
+    display: flex;
+    align-items: flex-end;
 }
-input[type="radio"] {
-    display: block;
-    margin: 0.5em auto;
+
+#emotionImage {
+    display: flex;
+    align-self: end;
+    width: 550px;
+}
+.emotionDimension {
+    display: none;
 }
 #emojiDefinition {
     margin: 20px;
 }
+
 #clarityContainer {
     text-align: center;
     display: none;
+}
+
+#clarityDimensionContainer {
+    display: grid;
+    grid-template-columns: 275px 550px 275px;
+    grid-template-rows: 100px 100px 100px;
 }
 
 /*
