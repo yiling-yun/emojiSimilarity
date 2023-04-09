@@ -15,6 +15,7 @@ class trialObject {
         this.trialN = Math.ceil(Object.keys(this.trialInput).length / EMOJIS_PER_PAGE);
         this.numEmojis = Object.keys(this.trialInput).length;
         this.dimensionIndex = 0;
+        this.clarityIndex = 0;
         this.allData = list_to_formatted_string(this.titles, ";");
         this.getSubjectData();
     }

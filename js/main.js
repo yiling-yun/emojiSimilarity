@@ -21,6 +21,8 @@ const ONE_EMOJI_EXAMPLE = "3.png";
 const THREE_EMOJI_EXAMPLE = ["71.png", "3.png", "888.png"];
 const DIFF_EMOJIS = ["514.png", "659.png", "1021.png", "866.png", "918.png", "134.png", "1552.png"];
 const PRAC_STIM_PATH = STIM_PATH + 'test/';
+
+// list dimensions, scale labels, and the order of dimensions
 const DIMENSIONS = [
     "Visual complexity refers to the emoji’s visual features, not to the features of the concept to which it refers. The more visual features the emoji contains, the more visually complex it can be considered to be.",
     "Familiarity refers to how often the participant encounters or sees the emoji in his/her daily life. Emojis encountered more frequently are, therefore, more familiar.",
@@ -29,7 +31,7 @@ const DIMENSIONS = [
     "Emotional arousal refers to the extent to which the emoji denotes something passive/calm or something arousing/exciting.",
     "In your opinion, considering the visual characteristics of the symbol, and not the object or concept it may depict, how visually appealing is the stimulus?",
 ];
-const LOWER_SCALE = [
+const LOWER_SCALES = [
     "very simple",
     "very unfamiliar",
     "I never use the emoji",
@@ -37,7 +39,7 @@ const LOWER_SCALE = [
     "Completely calm",
     "Visually unpleasant",
 ];
-const UPPER_SCALE = [
+const UPPER_SCALES = [
     "very complex",
     "very familiar",
     "I use the emoji very often",
@@ -45,6 +47,23 @@ const UPPER_SCALE = [
     "Completely aroused",
     "Visually very pleasant",
 ];
+const ORDER_OF_DIMENSIONS = {
+    "0": 0,
+    "1": 1,
+    "2": 2,
+    "3": 3,
+    "4": 4,
+    "5": 5,
+    "6": 6
+}
+// shuffle dimension order
+for (let i = 0; i < Object.keys(ORDER_OF_DIMENSIONS).length; i++) {
+    j = Math.floor(Math.random() * (i + 1));
+    let temp = ORDER_OF_DIMENSIONS[i];
+    ORDER_OF_DIMENSIONS[i] = ORDER_OF_DIMENSIONS[j]
+    ORDER_OF_DIMENSIONS[j] = temp;
+}
+
 const PRAC_TRIAL_INPUT = {
     "0": 1,
     "1": 4,
@@ -66,7 +85,7 @@ let TRIAL_INPUT = {
     // "7": 128,
 };
 
-// sort emoji orders
+// shuffle emoji orders
 for (let i = 0; i < Object.keys(TRIAL_INPUT).length; i++) {
     j = Math.floor(Math.random() * (i + 1));
     let temp = TRIAL_INPUT[i];
@@ -539,12 +558,23 @@ function CLEAR_RADIO_BUTTONS() {
 }
 
 function NEXT_TRIAL() {
-    activeTrial.dimensionIndex = activeTrial.dimensionIndex + 1;
+    // if the current dimension is the clarity dimension
+    if (ORDER_OF_DIMENSIONS[activeTrial.dimensionIndex] == NUM_DIMENSIONS) {
+        if (activeTrial.clarityIndex >= Math.min(EMOJIS_PER_PAGE, activeTrial.numEmojis - (EMOJIS_PER_PAGE * activeTrial.trialIndex))) {
+            activeTrial.clarityIndex = 0; // reset clarity index
+            activeTrial.dimensionIndex = activeTrial.dimensionIndex + 1; // continue to next dimension
+        }
+    }
+    else {
+        activeTrial.dimensionIndex = activeTrial.dimensionIndex + 1;
+    }
     activeTrial.exptId = activeTrial.trialIndex;
-    let emojiIndex = EMOJIS_PER_PAGE * activeTrial.exptId + activeTrial.dimensionIndex - NUM_DIMENSIONS;
 
     // go to next set of emojis
-    if (activeTrial.dimensionIndex - NUM_DIMENSIONS >= EMOJIS_PER_PAGE || emojiIndex >= activeTrial.numEmojis) {
+    if (activeTrial.dimensionIndex > NUM_DIMENSIONS) {
+        // reset the dimension index
+        activeTrial.dimensionIndex = 0
+
         //save current trial data
         var dataList = list_from_attribute_names(activeTrial, activeTrial.titles);
         activeTrial.allData += list_to_formatted_string(dataList, ";");
@@ -587,36 +617,46 @@ function NEXT_TRIAL() {
 
 function UPDATE_INTERFACE() {
     //update stimuli
+    let currentDimensionIndex = ORDER_OF_DIMENSIONS[activeTrial.dimensionIndex];
     activeTrial.exptId = activeTrial.trialIndex;
     let emojiIndex = EMOJIS_PER_PAGE * activeTrial.exptId;
-    let clarityEmojiIndex = EMOJIS_PER_PAGE * activeTrial.exptId + activeTrial.dimensionIndex - NUM_DIMENSIONS;
+    let clarityEmojiIndex = emojiIndex + activeTrial.clarityIndex;
     LOAD_EMOJIS(emojiIndex);
-
-    // go to next set of emojis after clarity dimension
-    if (activeTrial.dimensionIndex - NUM_DIMENSIONS >= EMOJIS_PER_PAGE || clarityEmojiIndex >= activeTrial.numEmojis) {
-        $('#allDimensionsContainer').show();
-        $('#clarityContainer').hide();    
-        activeTrial.dimensionIndex = 0;
+    
+    // if next dimension is emotional valence dimension, set up buffer image
+    if (ORDER_OF_DIMENSIONS[activeTrial.dimensionIndex + 1] % (NUM_DIMENSIONS + 1) == 3) {
+        $('#emotionImageBuffer').attr('src', 'emotionalValence.png');
     }
 
-    $("#dimensionQuestion").text(DIMENSIONS[activeTrial.dimensionIndex]);
-    $(".lowerScale").text(LOWER_SCALE[activeTrial.dimensionIndex]);
-    $(".upperScale").text(UPPER_SCALE[activeTrial.dimensionIndex]);
-    
-    // set up clarity page
-    if (activeTrial.dimensionIndex >= NUM_DIMENSIONS) {
+    // if next dimension is emotional arousal dimension, set up buffer image
+    if (ORDER_OF_DIMENSIONS[activeTrial.dimensionIndex + 1] % (NUM_DIMENSIONS + 1) == 4) {
+        $('#emotionImageBuffer').attr('src', 'emotionalArousal.png');
+    }
+
+    // index of 6 equals the clarity dimension
+    if (currentDimensionIndex == NUM_DIMENSIONS) {
+        // set up the clarity page
         $('#allDimensionsContainer').hide();
         $('#clarityContainer').show();
+        $("input[type='radio']").css('margin', 'auto');
         $("#dimensionQuestion").text("Clarity refers to the relationship between the emoji and its meaning.");
         clarityEmoji = activeTrial.trialInput[clarityEmojiIndex];
         $('#clarityEmoji').attr('src', activeTrial.stimPath + clarityEmoji +'.png');
         $('#emojiDefinition').text("Meaning: " + EMOJI_DEFINITIONS[activeTrial.trialInput[clarityEmojiIndex]]);
+        activeTrial.clarityIndex = activeTrial.clarityIndex + 1;
     }
     else {
-        // go to next dimension
+        // set up next dimension
+        $('#allDimensionsContainer').show();
+        $('#clarityContainer').hide();
+        $("#dimensionQuestion").text(DIMENSIONS[currentDimensionIndex]);
+        $(".lowerScale").text(LOWER_SCALES[currentDimensionIndex]);
+        $(".upperScale").text(UPPER_SCALES[currentDimensionIndex]);
+    
 
         // show emotional dimension images if dimension is emotional valence or emotional arousal
-        if (DIMENSIONS[activeTrial.dimensionIndex].split(" ")[1] == "valence") {
+        // index of 3 refers to emotional valence dimension
+        if (currentDimensionIndex == 3) {
             $(".emotionDimension").show();
             $("input[type='radio']").css('margin', '20px');
             $("input[value='1']").css('margin-left', '48px');
@@ -624,7 +664,8 @@ function UPDATE_INTERFACE() {
             $("#scaleNumbersContainer").hide();
             $('#emotionImage').attr('src', 'emotionalValence.png');
         }
-        else if (DIMENSIONS[activeTrial.dimensionIndex].split(" ")[1] == "arousal") {
+        // index of 4 refers to emotional arousal dimension
+        else if (currentDimensionIndex == 4) {
             $(".emotionDimension").show();
             $("input[type='radio']").css('margin', '20px');
             $("input[value='1']").css('margin-left', '48px');
