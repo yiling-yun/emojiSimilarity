@@ -67,8 +67,7 @@ for (let i = 0; i < Object.keys(ORDER_OF_DIMENSIONS).length; i++) {
 const PRAC_TRIAL_INPUT = {
     "0": 1,
     "1": 4,
-    "2": 32,
-    "3": 35
+    "2": 32
 };
 const NUM_DIMENSIONS = DIMENSIONS.length;
 const EMOJIS_PER_PAGE = 3;
@@ -80,9 +79,7 @@ let TRIAL_INPUT = {
     "2": 32,
     "3": 35,
     "4": 68,
-    "5": 70,
-    "6": 108,
-    // "7": 128,
+    "5": 70
 };
 
 // shuffle emoji orders
@@ -270,11 +267,11 @@ instr_text[1] = "Your contributions may help in building computer vision systems
 instr_text[2] = "This experiment will take about 25 minutes to complete.<br /><br />Please help us by reading the instructions in the next few pages carefully, and avoid using the refresh or back buttons.";
 instr_text[3] = "For this study to work, the webpage will automatically switch to the fullscreen view on the next page. Please stay in the fullscreen mode until the study automatically switches out from it.";
 instr_text[4] = "Please also turn off any music you are playing. Music is known to affect our kind of studies and will make your data unusable.";
-instr_text[5] = "In this experiment, we will show you some emojis, just like the one below.";
-instr_text[6] = "Each time, three emojis will show up. ";
-instr_text[7] = "Your job is to judge which emoji is the odd one out. That is to say, you should select the emoji that is the most different from the other two.";
-instr_text[8] = "You will make the selection by clicking on that emoji.";
-instr_text[9] = "Then you can continue to the next trial.";
+instr_text[5] = "In this experiment, you will be shown a page of one or more emojis, just like the one below.";
+instr_text[6] = "Each time, three emojis will show up.";
+instr_text[7] = "At the top of each page, there will be a prompt. Your job is to rate each emoji in accordance to the prompt provided. You will have to rate each emoji in accordance to multiple prompts.";
+instr_text[8] = "You will make the selection by clicking on the button that corresponds to your rating. If you do not know the emoji, please select the \"I don't know this emoji\" option.";
+instr_text[9] = "Once you have rated all of the emojis, you can continue to the next trial.";
 instr_text[10] = "You will see different emojis, not just faces.";
 instr_text[11] = "Let's try a few times on the next page!";
 instr_text[12] = "";
@@ -284,32 +281,23 @@ instr_text[15] = "";
 instr_text[16] = "Great! You can press SPACE to start. Please focus after you start. (Don't switch to other windows or tabs!).<br><br>Please try your best, but please also know that this task is supposed to be hard; so don't worry if you find it difficult!";
 
 const INSTR_FUNC_DICT = {
-    // 0: SHOW_INSTR,
-    // 1: SHOW_INSTR,
-    // 2: SHOW_INSTR,
-    // 3: SHOW_MAXIMIZE_WINDOW,
-    // 4: SHOW_NO_MUSIC,
-    // 5: SHOW_ONE_EMOJI,
-    // 6: SHOW_THREE_EMOJIS,
-    // 7: SHOW_INSTR,
-    // 8: SHOW_INSTR,
-    // 9: HIDE_EMOJIS,
-    // 10: SHOW_DIFF_EMOJIS,
-    // 11: HIDE_EMOJIS,
-    // 12: SHOW_TASK,
-    // 13: SHOW_INSTR,
-    // 14: SHOW_INSTR,
-    // 15: SHOW_INSTR_QUIZ,
-    // 16: SHOW_CONSENT
     0: SHOW_INSTR,
-    // 1: SHOW_MAXIMIZE_WINDOW,
-    1: SHOW_ONE_EMOJI,
-    2: HIDE_EMOJIS,
-    3: SHOW_TASK,
-    4: SHOW_INSTR,
-    5: SHOW_INSTR,
-    6: SHOW_INSTR_QUIZ,
-    7: SHOW_CONSENT
+    1: SHOW_INSTR,
+    2: SHOW_INSTR,
+    3: SHOW_MAXIMIZE_WINDOW,
+    4: SHOW_NO_MUSIC,
+    5: SHOW_ONE_EMOJI,
+    6: SHOW_THREE_EMOJIS,
+    7: SHOW_INSTR,
+    8: SHOW_INSTR,
+    9: HIDE_EMOJIS,
+    10: SHOW_DIFF_EMOJIS,
+    11: HIDE_EMOJIS,
+    12: SHOW_TASK,
+    13: SHOW_INSTR,
+    14: SHOW_INSTR,
+    15: SHOW_INSTR_QUIZ,
+    16: SHOW_CONSENT
 };
 
 
@@ -357,6 +345,7 @@ function SHOW_DIFF_EMOJIS() {
     $("#instrStimBox").empty();
     for(let i = 0; i < DIFF_EMOJIS.length; i++){
         $("#instrStimBox").append("<img src='stim/" + DIFF_EMOJIS[i] + "'/>");
+        $("#instrStimBox").css("flex-direction", "row");
     }
     $("#instrStimBox img").css("margin", "100px 0px");
 }
@@ -412,7 +401,7 @@ function SUBMIT_INSTR_QUIZ() {
     const CHOICE = $('input[name="quiz"]:checked').val();
     if (typeof CHOICE === 'undefined') {
         $('#quizWarning').text('Please answer the question. Thank you!');
-    } else if (CHOICE != 'different') {
+    } else if (CHOICE != 'ratePrompt') {
         instr.qAttemptN += 1;
         $('#quizBox').hide();
         $('#instrText').text('You have given an incorrect answer. Please read the instructions again carefully.');
@@ -708,7 +697,7 @@ const TRIAL_TITLES = [
     "rightEmoji",
     "choice",
     "choicePos",
-    "rt"
+    "rt" // TODO: figure out when to start response time and when to finish response time
 ];
 
 var trial_options = {

@@ -69,10 +69,10 @@
     <div class="pageBox" id="quizBox">
         <div class="bold">What is your job in this experiment?</div>
         <label><div class="option"><input class="radio" type="radio" name="quiz" value="forgot" /><p class='option-text'>Select this option if you do not remember the instructions</p></div></label>
-        <label><div class="option"><input class="radio" type="radio" name="quiz" value="pleasant" /><p class="option-text">Choose the emoji that is the most pleasant among the three</p></div></label>
-        <label><div class="option"><input class="radio" type="radio" name="quiz" value="unpleasant" /><p class="option-text">Choose the emoji that is the most unpleasant among the three</p></div></label>
-        <label><div class="option"><input class="radio" type="radio" name="quiz" value="complex" /><p class="option-text">Choose the emoji that is the most complex among the three</p></div></label>
-        <label><div class="option"><input class="radio" type="radio" name="quiz" value="different" /><p class="option-text">Choose the emoji that is the most different among the three</p></div></label>
+        <label><div class="option"><input class="radio" type="radio" name="quiz" value="pleasant" /><p class="option-text">Rate each emoji based on how pleasant they are</p></div></label>
+        <label><div class="option"><input class="radio" type="radio" name="quiz" value="unpleasant" /><p class="option-text">Rate each emoji based on how unpleasant they are</p></div></label>
+        <label><div class="option"><input class="radio" type="radio" name="quiz" value="rank" /><p class="option-text">Rank each emoji based on your own intuition</p></div></label>
+        <label><div class="option"><input class="radio" type="radio" name="quiz" value="ratePrompt" /><p class="option-text">Rate each emoji in accordance to the prompt</p></div></label>
         <button onclick='SUBMIT_INSTR_QUIZ()' id="instrQSubmitBut">SUBMIT</button>
         <p class="warning" id="quizWarning"></p>
     </div>
@@ -240,7 +240,7 @@
         <button class='button' id="endExptBut" onclick='go_to_completion_page()'>END</button>
         <div class='debriefing-area'>
             <strong>Debriefing Sheet</strong><br />
-            We are studying how humans represent objects and concepts. We are studying emojis because they contain rich visual information and are commonly used in linguistic contexts. We are testing it using a similarity judgment task. Two emojis can be similar in multiple ways: color, shape, meaning, etc.<br /><br />
+            We are studying how humans represent objects and concepts. We are studying emojis because they contain rich visual information and are commonly used in linguistic contexts. We are testing it using a rating task. There are many ways to measure how someone interprets an emoji: clarity, complexity, familiarity, etc.<br /><br />
 
             If you have any questions, please feel free to contact the researcher Hongjing Lu at hongjing@g.ucla.edu.
         </div>
