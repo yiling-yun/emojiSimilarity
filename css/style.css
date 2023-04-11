@@ -213,6 +213,7 @@ textarea {
 #stimuliBox input[type="radio"] {
     width: 15px;
     justify-self: center;
+    cursor: pointer;
 }
 
 #scaleNumbersContainer {

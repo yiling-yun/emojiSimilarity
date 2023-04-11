@@ -30,6 +30,7 @@ const DIMENSIONS = [
     "Emotional valence refers to the extent to which the emoji denotes something negative/unpleasant or something positive/pleasant.",
     "Emotional arousal refers to the extent to which the emoji denotes something passive/calm or something arousing/exciting.",
     "In your opinion, considering the visual characteristics of the symbol, and not the object or concept it may depict, how visually appealing is the stimulus?",
+    "Clarity refers to the relationship between the emoji and its meaning.",
 ];
 const LOWER_SCALES = [
     "very simple",
@@ -38,6 +39,7 @@ const LOWER_SCALES = [
     "Completely Sad",
     "Completely calm",
     "Visually unpleasant",
+    "The emoji does not represent the meaning at all",
 ];
 const UPPER_SCALES = [
     "very complex",
@@ -46,6 +48,7 @@ const UPPER_SCALES = [
     "Completely happy",
     "Completely aroused",
     "Visually very pleasant",
+    "The emoji represents the meaning very well"
 ];
 const ORDER_OF_DIMENSIONS = {
     "0": 0,
@@ -443,7 +446,7 @@ var instr_options = {
 
 function INIT_TRIAL(){
     //show progress
-    let progress = Math.round(((activeTrial.trialIndex * EMOJIS_PER_PAGE) + activeTrial.dimensionIndex + activeTrial.clarityIndex)/(activeTrial.trialN * (NUM_DIMENSIONS + EMOJIS_PER_PAGE)) * 100);
+    let progress = Math.round((activeTrial.dimensionIndex + activeTrial.clarityIndex)/(activeTrial.trialN * (NUM_DIMENSIONS + EMOJIS_PER_PAGE - 1)) * 100);
     $("#progress").html(progress+ "% completed");
 
     //buffer first trial
@@ -548,9 +551,8 @@ function CLEAR_RADIO_BUTTONS() {
 
 function NEXT_TRIAL() {
     // if the current dimension is the clarity dimension
-    if (ORDER_OF_DIMENSIONS[activeTrial.dimensionIndex] == NUM_DIMENSIONS) {
-        if (activeTrial.clarityIndex >= Math.min(EMOJIS_PER_PAGE, activeTrial.numEmojis - (EMOJIS_PER_PAGE * activeTrial.trialIndex))) {
-            activeTrial.clarityIndex = 0; // reset clarity index
+    if (ORDER_OF_DIMENSIONS[activeTrial.dimensionIndex % NUM_DIMENSIONS] == NUM_DIMENSIONS - 1) {
+        if (activeTrial.clarityIndex % EMOJIS_PER_PAGE == 0 || (EMOJIS_PER_PAGE * activeTrial.trialIndex + (activeTrial.clarityIndex % EMOJIS_PER_PAGE)) >= activeTrial.numEmojis) {
             activeTrial.dimensionIndex = activeTrial.dimensionIndex + 1; // continue to next dimension
         }
     }
@@ -560,10 +562,7 @@ function NEXT_TRIAL() {
     activeTrial.exptId = activeTrial.trialIndex;
 
     // go to next set of emojis
-    if (activeTrial.dimensionIndex > NUM_DIMENSIONS) {
-        // reset the dimension index
-        activeTrial.dimensionIndex = 0
-
+    if (activeTrial.dimensionIndex % NUM_DIMENSIONS == 0) {
         //save current trial data
         var dataList = list_from_attribute_names(activeTrial, activeTrial.titles);
         activeTrial.allData += list_to_formatted_string(dataList, ";");
@@ -606,24 +605,24 @@ function NEXT_TRIAL() {
 
 function UPDATE_INTERFACE() {
     //update stimuli
-    let currentDimensionIndex = ORDER_OF_DIMENSIONS[activeTrial.dimensionIndex];
+    let currentDimensionIndex = ORDER_OF_DIMENSIONS[activeTrial.dimensionIndex % NUM_DIMENSIONS];
     activeTrial.exptId = activeTrial.trialIndex;
     let emojiIndex = EMOJIS_PER_PAGE * activeTrial.exptId;
-    let clarityEmojiIndex = emojiIndex + activeTrial.clarityIndex;
+    let clarityEmojiIndex = emojiIndex + (activeTrial.clarityIndex % EMOJIS_PER_PAGE);
     LOAD_EMOJIS(emojiIndex);
     
     // if next dimension is emotional valence dimension, set up buffer image
-    if (ORDER_OF_DIMENSIONS[activeTrial.dimensionIndex + 1] % (NUM_DIMENSIONS + 1) == 3) {
+    if (ORDER_OF_DIMENSIONS[(activeTrial.dimensionIndex % NUM_DIMENSIONS) + 1] == 3) {
         $('#emotionImageBuffer').attr('src', 'emotionalValence.png');
     }
 
     // if next dimension is emotional arousal dimension, set up buffer image
-    if (ORDER_OF_DIMENSIONS[activeTrial.dimensionIndex + 1] % (NUM_DIMENSIONS + 1) == 4) {
+    if (ORDER_OF_DIMENSIONS[(activeTrial.dimensionIndex % NUM_DIMENSIONS) + 1] == 4) {
         $('#emotionImageBuffer').attr('src', 'emotionalArousal.png');
     }
 
     // index of 6 equals the clarity dimension
-    if (currentDimensionIndex == NUM_DIMENSIONS) {
+    if (currentDimensionIndex == NUM_DIMENSIONS - 1) {
         // set up the clarity page
         $('#allDimensionsContainer').hide();
         $('#clarityContainer').show();
