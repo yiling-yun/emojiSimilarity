@@ -443,7 +443,7 @@ var instr_options = {
 
 function INIT_TRIAL(){
     //show progress
-    let progress = Math.round(activeTrial.trialIndex/activeTrial.trialN * 100);
+    let progress = Math.round(((activeTrial.trialIndex * EMOJIS_PER_PAGE) + activeTrial.dimensionIndex + activeTrial.clarityIndex)/(activeTrial.trialN * (NUM_DIMENSIONS + EMOJIS_PER_PAGE)) * 100);
     $("#progress").html(progress+ "% completed");
 
     //buffer first trial
