@@ -364,7 +364,6 @@ function SHOW_TASK() {
     $('#instrBox').hide();
     $('#allDimensionsContainer').show();
     $('#clarityContainer').hide();
-    activeTrial.randomizedExptIDList = shuffle_array(Object.keys(activeTrial.trialInput));
     INIT_TRIAL();
     $('#taskBox').show();
     CLEAR_RADIO_BUTTONS();
@@ -446,14 +445,12 @@ var instr_options = {
 
 function INIT_TRIAL(){
     //show progress
-    let progress = Math.round((activeTrial.dimensionIndex + activeTrial.clarityIndex)/(activeTrial.trialN * (NUM_DIMENSIONS + EMOJIS_PER_PAGE - 1)) * 100);
+    let progress = Math.round((activeTrial.dimensionIndex + activeTrial.clarityIndex)/(activeTrial.trialN * (NUM_DIMENSIONS + EMOJIS_PER_PAGE)) * 100);
     $("#progress").html(progress+ "% completed");
 
     //buffer first trial
     if (activeTrial.trialIndex == 0) {
-        let bufferExptID = activeTrial.randomizedExptIDList[activeTrial.trialIndex];
-        let emojiIndex = EMOJIS_PER_PAGE * bufferExptID;
-        LOAD_BUFFERS(emojiIndex);
+        LOAD_BUFFERS(0);
         $("#trialNextBut").hide();
     }
 
@@ -549,17 +546,52 @@ function CLEAR_RADIO_BUTTONS() {
     $('input[name="rating5"]').prop("checked", false);
 }
 
+function GET_RADIO_VALUES() {
+    return [
+        $('input[name=rating1]:checked').val(),
+        $('input[name=rating2]:checked').val(),
+        $('input[name=rating3]:checked').val()
+    ];
+}
+
 function NEXT_TRIAL() {
     // if the current dimension is the clarity dimension
     if (ORDER_OF_DIMENSIONS[activeTrial.dimensionIndex % NUM_DIMENSIONS] == NUM_DIMENSIONS - 1) {
+        activeTrial.clarity !== undefined ? activeTrial.clarity.push($('input[name=rating5]:checked').val()) : activeTrial.clarity = [$('input[name=rating5]:checked').val()]
         if (activeTrial.clarityIndex % EMOJIS_PER_PAGE == 0 || (EMOJIS_PER_PAGE * activeTrial.trialIndex + (activeTrial.clarityIndex % EMOJIS_PER_PAGE)) >= activeTrial.numEmojis) {
             activeTrial.dimensionIndex = activeTrial.dimensionIndex + 1; // continue to next dimension
         }
     }
     else {
+        // store correct ratings for the corresponding dimension
+
+        if (ORDER_OF_DIMENSIONS[activeTrial.dimensionIndex % NUM_DIMENSIONS] == 0) {
+            activeTrial.visualComplexity = GET_RADIO_VALUES();        
+        }
+
+        if (ORDER_OF_DIMENSIONS[activeTrial.dimensionIndex % NUM_DIMENSIONS] == 1) {
+            activeTrial.familiarity = GET_RADIO_VALUES();
+        }
+
+        if (ORDER_OF_DIMENSIONS[activeTrial.dimensionIndex % NUM_DIMENSIONS] == 2) {
+            activeTrial.frequency = GET_RADIO_VALUES();
+        }
+
+        if (ORDER_OF_DIMENSIONS[activeTrial.dimensionIndex % NUM_DIMENSIONS] == 3) {
+            activeTrial.emotionalValence = GET_RADIO_VALUES();
+        }
+
+        if (ORDER_OF_DIMENSIONS[activeTrial.dimensionIndex % NUM_DIMENSIONS] == 4) {
+            activeTrial.emotionalArousal = GET_RADIO_VALUES();
+        }
+
+        if (ORDER_OF_DIMENSIONS[activeTrial.dimensionIndex % NUM_DIMENSIONS] == 5) {
+            activeTrial.visualAppeal = GET_RADIO_VALUES();
+        }
+
+        // increment dimension index
         activeTrial.dimensionIndex = activeTrial.dimensionIndex + 1;
     }
-    activeTrial.exptId = activeTrial.trialIndex;
 
     // go to next set of emojis
     if (activeTrial.dimensionIndex % NUM_DIMENSIONS == 0) {
@@ -606,10 +638,14 @@ function NEXT_TRIAL() {
 function UPDATE_INTERFACE() {
     //update stimuli
     let currentDimensionIndex = ORDER_OF_DIMENSIONS[activeTrial.dimensionIndex % NUM_DIMENSIONS];
-    activeTrial.exptId = activeTrial.trialIndex;
-    let emojiIndex = EMOJIS_PER_PAGE * activeTrial.exptId;
+    let emojiIndex = EMOJIS_PER_PAGE * activeTrial.trialIndex;
     let clarityEmojiIndex = emojiIndex + (activeTrial.clarityIndex % EMOJIS_PER_PAGE);
     LOAD_EMOJIS(emojiIndex);
+
+    activeTrial.exptId = [activeTrial.trialInput[emojiIndex], activeTrial.trialInput[1 + emojiIndex], activeTrial.trialInput[2 + emojiIndex]];
+    activeTrial.emojiOne = activeTrial.trialInput[emojiIndex];
+    activeTrial.emojiTwo = activeTrial.trialInput[1 + emojiIndex];
+    activeTrial.emojiThree = activeTrial.trialInput[2 + emojiIndex];
     
     // if next dimension is emotional valence dimension, set up buffer image
     if (ORDER_OF_DIMENSIONS[(activeTrial.dimensionIndex % NUM_DIMENSIONS) + 1] == 3) {
@@ -640,7 +676,6 @@ function UPDATE_INTERFACE() {
         $("#dimensionQuestion").text(DIMENSIONS[currentDimensionIndex]);
         $(".lowerScale").text(LOWER_SCALES[currentDimensionIndex]);
         $(".upperScale").text(UPPER_SCALES[currentDimensionIndex]);
-    
 
         // show emotional dimension images if dimension is emotional valence or emotional arousal
         // index of 3 refers to emotional valence dimension
@@ -670,9 +705,8 @@ function UPDATE_INTERFACE() {
 
     //buffer next trial
     if (activeTrial.trialIndex + 1 < activeTrial.trialN){
-        let bufferExptID = activeTrial.trialIndex + 1;
-        let bufferEmojiIndex = 4 * bufferExptID;
-        LOAD_BUFFERS(bufferEmojiIndex);
+        let emojiIndex = EMOJIS_PER_PAGE * (activeTrial.trialIndex + 1);
+        LOAD_BUFFERS(emojiIndex);
     }
 
     //update interface structure
@@ -689,13 +723,18 @@ const TRIAL_TITLES = [
     "subjStartDate",
     "subjStartTime",
     "trialType",
-    "trialIndex", // refers to the index of the trial that they are seeing from 0 to n-1
-    "exptId", // the trial that is corresponding to the input dataset, is randomized for each participant
-    "leftEmoji", // change these to the data you want
-    "middleEmoji",
-    "rightEmoji",
-    "choice",
-    "choicePos",
+    "trialIndex",
+    "exptId",
+    "emojiOne",
+    "emojiTwo",
+    "emojiThree",
+    "visualComplexity",
+    "familiarity",
+    "frequency",
+    "emotionalValence",
+    "emotionalArousal",
+    "visualAppeal",
+    "clarity",
     "rt" // TODO: figure out when to start response time and when to finish response time
 ];
 
