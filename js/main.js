@@ -270,18 +270,17 @@ instr_text[1] = "Your contributions may help in building computer vision systems
 instr_text[2] = "This experiment will take about 25 minutes to complete.<br /><br />Please help us by reading the instructions in the next few pages carefully, and avoid using the refresh or back buttons.";
 instr_text[3] = "For this study to work, the webpage will automatically switch to the fullscreen view on the next page. Please stay in the fullscreen mode until the study automatically switches out from it.";
 instr_text[4] = "Please also turn off any music you are playing. Music is known to affect our kind of studies and will make your data unusable.";
-instr_text[5] = "In this experiment, you will be shown a page of one or more emojis, just like the one below.";
-instr_text[6] = "Each time, three emojis will show up.";
-instr_text[7] = "At the top of each page, there will be a prompt. Your job is to rate each emoji in accordance to the prompt provided. You will have to rate each emoji in accordance to multiple prompts.";
-instr_text[8] = "You will make the selection by clicking on the button that corresponds to your rating. If you do not know the emoji, please select the \"I don't know this emoji\" option.";
-instr_text[9] = "Once you have rated all of the emojis, you can continue to the next trial.";
-instr_text[10] = "You will see different emojis, not just faces.";
-instr_text[11] = "Let's try a few times on the next page!";
-instr_text[12] = "";
-instr_text[13] = "We hope that was clear!<br /><br />By the way, you don't need to spend too much time thinking about what to choose. Just follow your intuition.";
-instr_text[14] = "The next page is a quick instruction quiz. (It's very simple!)";
-instr_text[15] = "";
-instr_text[16] = "Great! You can press SPACE to start. Please focus after you start. (Don't switch to other windows or tabs!).<br><br>Please try your best, but please also know that this task is supposed to be hard; so don't worry if you find it difficult!";
+instr_text[5] = "At the top of each page, there will be a prompt. Your job is to rate each emoji shown in accordance to the prompt provided. You will have to rate each emoji in accordance to multiple prompts.";
+instr_text[6] = "There will be 7 prompts to respond to including visual complexity, familiarity, frequency of use, emotional valence, emotional arousal, visual appeal, and clarity.";
+instr_text[7] = "You will make the selection by clicking on the button that corresponds to your rating. If you do not know the emoji, please select the \"I don't know this emoji\" option.";
+instr_text[8] = "Once you have rated all of the emojis, you can continue to the next trial.";
+instr_text[9] = "You will see different emojis, not just faces.";
+instr_text[10] = "Let's try a few times on the next page!";
+instr_text[11] = "";
+instr_text[12] = "We hope that was clear!<br /><br />By the way, you don't need to spend too much time thinking about what to choose. Just follow your intuition.";
+instr_text[13] = "The next page is a quick instruction quiz. (It's very simple!)";
+instr_text[14] = "";
+instr_text[15] = "Great! You can press SPACE to start. Please focus after you start. (Don't switch to other windows or tabs!).<br><br>Please try your best, but please also know that this task is supposed to be hard; so don't worry if you find it difficult!";
 
 const INSTR_FUNC_DICT = {
     0: SHOW_INSTR,
@@ -290,17 +289,16 @@ const INSTR_FUNC_DICT = {
     3: SHOW_MAXIMIZE_WINDOW,
     4: SHOW_NO_MUSIC,
     5: SHOW_ONE_EMOJI,
-    6: SHOW_THREE_EMOJIS,
-    7: SHOW_INSTR,
+    6: HIDE_EMOJIS,
+    7: SHOW_PRACTICE_RATING,
     8: SHOW_INSTR,
-    9: HIDE_EMOJIS,
+    9: SHOW_INSTR,
     10: SHOW_DIFF_EMOJIS,
-    11: HIDE_EMOJIS,
-    12: SHOW_TASK,
+    11: SHOW_TASK,
+    12: HIDE_EMOJIS,
     13: SHOW_INSTR,
-    14: SHOW_INSTR,
-    15: SHOW_INSTR_QUIZ,
-    16: SHOW_CONSENT
+    14: SHOW_INSTR_QUIZ,
+    15: SHOW_CONSENT
 };
 
 
@@ -357,6 +355,11 @@ function HIDE_EMOJIS() {
     $("#instrStimBox").css("display", "none");
     practice = new trialObject(prac_trial_options);
     activeTrial = practice;
+}
+
+function SHOW_PRACTICE_RATING() {
+    SHOW_INSTR_IMG('practice_rating.png');
+    $('#instrImg').css('width', '1000px');
 }
 
 function SHOW_TASK() {

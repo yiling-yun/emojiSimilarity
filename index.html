@@ -69,9 +69,9 @@
     <div class="pageBox" id="quizBox">
         <div class="bold">What is your job in this experiment?</div>
         <label><div class="option"><input class="radio" type="radio" name="quiz" value="forgot" /><p class='option-text'>Select this option if you do not remember the instructions</p></div></label>
-        <label><div class="option"><input class="radio" type="radio" name="quiz" value="pleasant" /><p class="option-text">Rate each emoji based on how pleasant they are</p></div></label>
-        <label><div class="option"><input class="radio" type="radio" name="quiz" value="unpleasant" /><p class="option-text">Rate each emoji based on how unpleasant they are</p></div></label>
-        <label><div class="option"><input class="radio" type="radio" name="quiz" value="rank" /><p class="option-text">Rank each emoji based on your own intuition</p></div></label>
+        <label><div class="option"><input class="radio" type="radio" name="quiz" value="order" /><p class="option-text">Order the emojis based on how much you like them</p></div></label>
+        <label><div class="option"><input class="radio" type="radio" name="quiz" value="singlePrompt" /><p class="option-text">Rate each emoji once based on a single prompt</p></div></label>
+        <label><div class="option"><input class="radio" type="radio" name="quiz" value="similar" /><p class="option-text">Rate each emoji in accordance to how similar they are to each other</p></div></label>
         <label><div class="option"><input class="radio" type="radio" name="quiz" value="ratePrompt" /><p class="option-text">Rate each emoji in accordance to the prompt</p></div></label>
         <button onclick='SUBMIT_INSTR_QUIZ()' id="instrQSubmitBut">SUBMIT</button>
         <p class="warning" id="quizWarning"></p>
@@ -131,7 +131,7 @@
                     <input class="emotionDimension" type="radio" name="rating2" value="9" />
                 </div>
                 <div class="secondEmoji"></div>
-                <input class="secondEmoji" type="radio" name="rating2" value="8" />
+                <input class="secondEmoji" type="radio" name="rating2" value="0" />
                 <!-- ROW 4 OF GRID -->
                 <img id="thirdEmoji" class="emojiImg thirdEmoji" src="stim/blank.png" alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'/>
                 <div class="thirdEmoji"></div>
@@ -147,7 +147,7 @@
                     <input class="emotionDimension" type="radio" name="rating3" value="9" />
                 </div>
                 <div class="thirdEmoji"></div>
-                <input class="thirdEmoji" type="radio" name="rating3" value="8" />
+                <input class="thirdEmoji" type="radio" name="rating3" value="0" />
             </div>
             <div id="clarityContainer">
                 <img id="clarityEmoji" src="stim/blank.png" alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'/>
@@ -181,7 +181,7 @@
                     <div></div>
                     <div>
                         <label style="display: block;">I don't know this emoji</label>
-                        <input type="radio" name="rating5" value="8" />
+                        <input type="radio" name="rating5" value="0" />
                     </div>
                 </div>
             </div>
