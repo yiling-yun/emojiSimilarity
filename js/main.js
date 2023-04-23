@@ -68,21 +68,63 @@ for (let i = 0; i < Object.keys(ORDER_OF_DIMENSIONS).length; i++) {
 }
 
 const PRAC_TRIAL_INPUT = {
-    "0": 1,
-    "1": 4,
-    "2": 32
+    "0": 545,
+    "1": 68,
+    "2": 1331
 };
 const NUM_DIMENSIONS = DIMENSIONS.length;
 const EMOJIS_PER_PAGE = 3;
 const TEST_STIM_PATH = STIM_PATH + 'test/';
 //xxx: uncommented the following section for testing purposes
 let TRIAL_INPUT = {
-    "0": 1,
-    "1": 4,
-    "2": 32,
-    "3": 35,
-    "4": 68,
-    "5": 70
+    "0": 1394,
+    "1": 1332,
+    "2": 1331,
+    "3": 861,
+    "4": 855,
+    "5": 904,
+    "6": 926,
+    "7": 943,
+    "8": 1044,
+    "9": 1126,
+    "10": 992,
+    "11": 949,
+    "12": 966,
+    "13": 627,
+    "14": 836,
+    "15": 442,
+    "16": 288,
+    "17": 331,
+    "18": 289,
+    "19": 245,
+    "20": 363,
+    "21": 378,
+    "22": 1244,
+    "23": 1141,
+    "24": 1140,
+    "25": 1206,
+    "26": 1223,
+    "27": 1183,
+    "28": 1308,
+    "29": 1298,
+    "30": 159,
+    "31": 677,
+    "32": 707,
+    "33": 720,
+    "34": 480,
+    "35": 68,
+    "36": 70,
+    "37": 761,
+    "38": 1583,
+    "39": 1098,
+    "40": 108,
+    "41": 1192,
+    "42": 203,
+    "43": 1020,
+    "44": 1422,
+    "45": 545,
+    "46": 564,
+    "47": 622,
 };
 
 // shuffle emoji orders
@@ -94,14 +136,54 @@ for (let i = 0; i < Object.keys(TRIAL_INPUT).length; i++) {
 }
 
 const EMOJI_DEFINITIONS = {
-    "1": "General pleasure and good cheer or humor",
-    "4": "Radiant, gratified happiness",
-    "32": "Questioning or scorning something or someone",
-    "35": "Mildly irritated or concerned",
-    "68": "Feeling unsure",
-    "70": "Mildly concerned, disappointed, or sad",
-    "108": "Grinning cat",
-    "128": "Love is in the air"
+    "1394": ["Scorpio:", "This Zodiac Symbol represents a Scorpion."],
+    "1332": ["Men's Room:", "Generally used to indicate a male restroom."],
+    "1331": ["Wheelchair Symbol:", "The international symbol of access, used to denote a facility which has been designed with accessibility or people in wheelchairs in mind."],
+    "861": ["Fire Engine:", "An essential part of emergency services along with a police car or ambulance. May be on the way to put out a fire."],
+    "855": ["Tram Car:", "A form of public transport on rails, usually found on streets in cities or other urban areas. For short or medium-length journeys."],
+    "904": ["Airplane Arrival:", "A plane approaching a runway for landing."],
+    "926": ["One-Thirty:", "One-Thirty."],
+    "943": ["Ten O'Clock:", "Clock Face Ten O'Clock."],
+    "1044": ["Running Shirt:", "A singlet or running shirt."],
+    "1126": ["Speaker High Volume:", "Generally used as an icon to indicate the increasing of volume on a phone or computer."],
+    "992": ["Droplet:", "As of water, sweat, or tears. May be used for various types of liquid. May also be used to express sadness, as in  Crying Face, or for various liquid-based slang expressions (e.g., drip, \"exceptional style, swagger\")."],
+    "949": ["First Quarter Moon:", "May be used to represent the moon more generally, nighttime, outer space, and astronomy. May also be used to convey enchanting or eerie feelings."],
+    "966": ["Shooting Star:", "A small, fast meteor that burns up in the atmosphere. May be used for astronomical stars and other content concerning space. Also may be used for flair or flourish."],
+    "627": ["Bouquet:", "A bouquet of brightly colored flowers. Commonly used for Valentine's Day, Mother's Day, and other special occasions. May also be more generally used to express such sentiments as love, appreciation, and happiness."],
+    "836": ["Sunset:", "A beautiful view, featuring an orange sky, with the sun setting over the buildings of a city skyline."],
+    "442": ["Woman Mountain Biking:", "The female version of the Mountain Bicyclist emoji. A person (cyclist) who rides a mountain bike: a type of off-road bicycle."],
+    "288": ["Man Factory Worker.", ""],
+    "331": ["Woman Wearing Turban:", "The female version of the Man Wearing Turban emoji."],
+    "289": ["Woman Factory Worker:", "The female version of the Face With OK Gesture emoji. A person with arms above their head, making an 'OK' sign (circle) with the whole body."],
+    "245": ["Person Gesturing OK:", "A person with arms above their head, making an 'OK' sign (circle) with the whole body. No gender is specified."],
+    "363": ["Woman Vampire.", ""],
+    "378": ["Woman Getting Massage. ", ""],
+    "1244": ["Clipboard:", "A writing surface when standing. Commonly used for content concerning various types of documents and writing, especially in sports."],
+    "1141": ["Saxophone.", ""],
+    "1140": ["Radio:", "A classic portable radio, as used to listen to music, news, or sports. Commonly used for various content concerning radio, broadcasting, and music."],
+    "1206": ["Euro Banknote:", "A banded stack of euro banknotes, the paper currency of the European Union (EU). Commonly used for various content concerning wealth and money, not restricted to the EU."],
+    "1223": ["Postbox:", "A postbox (mailbox, letterbox) with a letter in its slot for collection. Used for various content concerning postal deliveries and email."],
+    "1183": ["Red Paper Lantern:", "A red paper lantern, as hangs outside an izakaya, a Japanese bar that serves drinks and casual food. May be used to represent various lights and lanterns as well as for its red color."],
+    "1308": ["Bathtub:", "Commonly used for various content concerning bathing, washing, cleaning, and bathrooms more generally."],
+    "1298": ["Door:", "A door, as to the entrance of a room, house, or new opportunity. May represent literal doors and related concepts (e.g., rooms, houses) but often used figuratively (e.g., opening or closing metaphorical doors)."],
+    "159": ["Hand with Fingers Splayed:", "Held in a manner that may indicate the number five."],
+    "677": ["Leafy Green:", "May be used to represent a variety of greens, including romaine lettuce, chard, and Chinese cabbage like bok choy, as commonly cooked in Asian cuisines. "],
+    "707": ["Egg:", "An egg, displayed as a chicken egg with a white or light brown shell. Commonly used at Easter time."],
+    "720": ["Rice Ball:", "A Japanese onigiri, a cone-shaped ball of white rice, a snack wrapped with a sheet of nori, or seaweed."],
+    "480": ["Family: Man, Woman, Girl, Girl:", "A family with a father, mother, and two daughters."],
+    "68": ["Confused Face:", "A look of feeling unsure. While it can convey confusion or hesitation, it is also commonly used for slight sadness, disappointment, and frustration."],
+    "70": ["Slightly Frowning Face:", "Often conveys a mild degree of concern, disappointment, or sadness, but usually less intensely than Frowning Face."],
+    "761": ["Wine Glass:", "Red wine served in a stemmed glass."],
+    "1583": ["Flag: Bermuda:", "The flag for Bermuda"],
+    "1098": ["Purse:", "A small pouch with a clasp, generally used to hold coins. Sometimes called a \"coin purse.\""],
+    "108": ["Grinning Cat:", "A cartoon cat variant of Grinning Face. Often conveys general pleasure and good cheer or humor."],
+    "1192": ["Notebook:", "A dark-colored, hardcover notebook, as used to write or take notes in school. Commonly used for various content concerning writing and schooling."],
+    "203": ["Bone:", "A bone which may be used for a dog to chew on, or as a part of the human body."],
+    "1020": ["3rd Place Medal.", ""],
+    "1422": ["Vibration Mode:", "An icon representing vibration mode on a mobile phone, indicating that a phone should be switched to silent and/or vibrate mode."],
+    "545": ["Goat:", "Frequently used as a visual shorthand for the slang expression GOAT, or the Great of All Time. Often considered one of the 12 animals of the Chinese zodiac. Also often used to represent Capricorn in the Western zodiac."],
+    "564": ["Bear:", "A friendly, cartoon-styled face of bear, looking straight ahead. Resembles a teddy bear. Often used with an affectionate tone."],
+    "622": ["Scorpion:", "A scorpion, an arachnid with lobster-like pincers and a stinging tail. Shown with six or, accurately, eight legs in addition to its pincers. Often used to represent  Scorpio in the Western zodiac."],
 };
 
 //xxx: ignore the following commented part
@@ -561,7 +643,10 @@ function NEXT_TRIAL() {
     // if the current dimension is the clarity dimension
     if (ORDER_OF_DIMENSIONS[activeTrial.dimensionIndex % NUM_DIMENSIONS] == NUM_DIMENSIONS - 1) {
         activeTrial.clarity !== undefined ? activeTrial.clarity.push($('input[name=rating5]:checked').val()) : activeTrial.clarity = [$('input[name=rating5]:checked').val()]
-        if (activeTrial.clarityIndex % EMOJIS_PER_PAGE == 0 || (EMOJIS_PER_PAGE * activeTrial.trialIndex + (activeTrial.clarityIndex % EMOJIS_PER_PAGE)) >= activeTrial.numEmojis) {
+        if (
+            (activeTrial.clarityIndex % EMOJIS_PER_PAGE == 0) ||
+            (EMOJIS_PER_PAGE * activeTrial.trialIndex + (activeTrial.clarityIndex % EMOJIS_PER_PAGE)) >= activeTrial.numEmojis
+        ){
             activeTrial.dimensionIndex = activeTrial.dimensionIndex + 1; // continue to next dimension
         }
     }
@@ -597,7 +682,10 @@ function NEXT_TRIAL() {
     }
 
     // go to next set of emojis
-    if (activeTrial.dimensionIndex % NUM_DIMENSIONS == 0) {
+    if (
+        activeTrial.dimensionIndex % NUM_DIMENSIONS == 0 && 
+        activeTrial.clarityIndex % EMOJIS_PER_PAGE == 0
+    ) {
         //save current trial data
         var dataList = list_from_attribute_names(activeTrial, activeTrial.titles);
         activeTrial.allData += list_to_formatted_string(dataList, ";");
@@ -666,17 +754,18 @@ function UPDATE_INTERFACE() {
         $('#allDimensionsContainer').hide();
         $('#clarityContainer').show();
         $("input[type='radio']").css('margin', 'auto');
-        $("#dimensionQuestion").text("Clarity refers to the relationship between the emoji and its meaning.");
+        $("#dimensionQuestion").html('<p id="dimensionQuestion"><b>Prompt: </b>' + DIMENSIONS[currentDimensionIndex] + '</p>')
         clarityEmoji = activeTrial.trialInput[clarityEmojiIndex];
         $('#clarityEmoji').attr('src', activeTrial.stimPath + clarityEmoji +'.png');
-        $('#emojiDefinition').text("Meaning: " + EMOJI_DEFINITIONS[activeTrial.trialInput[clarityEmojiIndex]]);
+        $('#emojiDefinition').html('<p id="emojiDefinition"><b>' + EMOJI_DEFINITIONS[clarityEmoji][0] + '</b> ' + EMOJI_DEFINITIONS[clarityEmoji][1] + '</p>');
+
         activeTrial.clarityIndex = activeTrial.clarityIndex + 1;
     }
     else {
         // set up next dimension
         $('#allDimensionsContainer').show();
         $('#clarityContainer').hide();
-        $("#dimensionQuestion").text(DIMENSIONS[currentDimensionIndex]);
+        $("#dimensionQuestion").html('<p id="dimensionQuestion"><b>Prompt: </b>' + DIMENSIONS[currentDimensionIndex] + '</p>')
         $(".lowerScale").text(LOWER_SCALES[currentDimensionIndex]);
         $(".upperScale").text(UPPER_SCALES[currentDimensionIndex]);
 
