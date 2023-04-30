@@ -212,7 +212,7 @@ let subj, instr, practice, test, activeTrial;
 $(document).ready(function() {
     subj = new Subject(subj_options);
     //xxx: commented to show on local
-    // subj.id = subj.getID(ID_GET_VARIABLE_NAME);
+    subj.id = subj.getID(ID_GET_VARIABLE_NAME);
     subj.saveVisit();
     // if (subj.phone) {
     //     halt_experiment('It seems that you are using a touchscreen device or a phone. Please use a laptop or desktop instead.<br /><br />If you believe you have received this message in error, please contact the experimenter at yiling.yun@g.ucla.edu<br /><br />Otherwise, please switch to a laptop or a desktop computer for this experiment.');
@@ -374,13 +374,12 @@ const INSTR_FUNC_DICT = {
     6: HIDE_EMOJIS,
     7: SHOW_PRACTICE_RATING,
     8: SHOW_INSTR,
-    9: SHOW_INSTR,
-    10: SHOW_DIFF_EMOJIS,
+    9: SHOW_DIFF_EMOJIS,
+    10: HIDE_EMOJIS,
     11: SHOW_TASK,
-    12: HIDE_EMOJIS,
-    13: SHOW_INSTR,
-    14: SHOW_INSTR_QUIZ,
-    15: SHOW_CONSENT
+    12: SHOW_INSTR,
+    13: SHOW_INSTR_QUIZ,
+    14: SHOW_CONSENT
 };
 
 
@@ -437,6 +436,15 @@ function HIDE_EMOJIS() {
     $("#instrStimBox").css("display", "none");
     practice = new trialObject(prac_trial_options);
     activeTrial = practice;
+    activeTrial.dimensionOrder = [
+        ORDER_OF_DIMENSIONS[0],
+        ORDER_OF_DIMENSIONS[1],
+        ORDER_OF_DIMENSIONS[2],
+        ORDER_OF_DIMENSIONS[3],
+        ORDER_OF_DIMENSIONS[4],
+        ORDER_OF_DIMENSIONS[5],
+        ORDER_OF_DIMENSIONS[6]
+    ];
 }
 
 function SHOW_PRACTICE_RATING() {
@@ -464,6 +472,15 @@ function SHOW_INSTR_QUIZ() {
     //xxx: commented the following line to test in local
     // import_json(test, subj.num);
     activeTrial = test;
+    activeTrial.dimensionOrder = [
+        ORDER_OF_DIMENSIONS[0],
+        ORDER_OF_DIMENSIONS[1],
+        ORDER_OF_DIMENSIONS[2],
+        ORDER_OF_DIMENSIONS[3],
+        ORDER_OF_DIMENSIONS[4],
+        ORDER_OF_DIMENSIONS[5],
+        ORDER_OF_DIMENSIONS[6]
+    ];
 }
 
 // function import_json(activeTrial, num){
@@ -531,7 +548,7 @@ var instr_options = {
 function INIT_TRIAL(){
     //show progress
     let progress = Math.round((activeTrial.dimensionIndex + activeTrial.clarityIndex)/(activeTrial.trialN * (NUM_DIMENSIONS + EMOJIS_PER_PAGE)) * 100);
-    $("#progress").html(progress+ "% completed");
+    $("#progress").html(progress + "% completed");
 
     //buffer first trial
     if (activeTrial.trialIndex == 0) {
@@ -593,14 +610,8 @@ function LOAD_EMOJIS (emojiIndex) {
 function SELECT(ele) {
     //record response time
     var decideTime = Date.now();
-    activeTrial.rt = decideTime - activeTrial.startTime;
+    activeTrial.rt !== undefined ? activeTrial.rt.push(decideTime - activeTrial.startTime) : activeTrial.rt = [decideTime - activeTrial.startTime];
 
-    //record response
-    var choicePos = $(ele).attr('id');
-    var choice = "";
-    choice = activeTrial[choicePos];
-    activeTrial.choicePos = choicePos;
-    activeTrial.choice = choice;
     //enable to proceed to the next trial
     $("#trialNextBut").show(); //xxx: (Pro: no easy get through the trials) alt: press SPACE BAR (Pro: no visual bias)
 }
@@ -610,16 +621,13 @@ radioButtons.click(() => {
     const rating1Checked = $('input[name="rating1"]').is(":checked");
     const rating2Checked = $('input[name="rating2"]').is(":checked");
     const rating3Checked = $('input[name="rating3"]').is(":checked");
+    const ratingClarityChecked = $('input[name="rating5"]').is(":checked");
     if (
         (rating1Checked || $('.firstEmoji').is(":hidden")) &&
         (rating2Checked || $('.secondEmoji').is(":hidden")) &&
-        (rating3Checked || $('.thirdEmoji').is(":hidden"))
+        (rating3Checked || $('.thirdEmoji').is(":hidden")) ||
+        ratingClarityChecked
     ) {
-        SELECT(this);
-    }
-
-    const ratingClarityChecked = $('input[name="rating5"]').is(":checked");
-    if (ratingClarityChecked) {
         SELECT(this);
     }
 });
@@ -642,7 +650,7 @@ function GET_RADIO_VALUES() {
 function NEXT_TRIAL() {
     // if the current dimension is the clarity dimension
     if (ORDER_OF_DIMENSIONS[activeTrial.dimensionIndex % NUM_DIMENSIONS] == NUM_DIMENSIONS - 1) {
-        activeTrial.clarity !== undefined ? activeTrial.clarity.push($('input[name=rating5]:checked').val()) : activeTrial.clarity = [$('input[name=rating5]:checked').val()]
+        activeTrial.clarity !== undefined ? activeTrial.clarity.push($('input[name=rating5]:checked').val()) : activeTrial.clarity = [$('input[name=rating5]:checked').val()];
         if (
             (activeTrial.clarityIndex % EMOJIS_PER_PAGE == 0) ||
             (EMOJIS_PER_PAGE * activeTrial.trialIndex + (activeTrial.clarityIndex % EMOJIS_PER_PAGE)) >= activeTrial.numEmojis
@@ -809,14 +817,13 @@ function UPDATE_INTERFACE() {
 // list of variables to be save, the variable names
 // trialobject uses these strings to get the variables in the code
 const TRIAL_TITLES = [
-    // TODO: save the question being asked  trial.rating = rating
-    // add 
     "subjNum",
     "subjStartDate",
     "subjStartTime",
     "trialType",
     "trialIndex",
     "exptId",
+    "dimensionOrder",
     "emojiOne",
     "emojiTwo",
     "emojiThree",
@@ -827,7 +834,7 @@ const TRIAL_TITLES = [
     "emotionalArousal",
     "visualAppeal",
     "clarity",
-    "rt" // TODO: figure out when to start response time and when to finish response time
+    "rt"
 ];
 
 var trial_options = {

@@ -252,19 +252,22 @@ textarea {
 .emotionDimension {
     display: none;
 }
+
 #emojiDefinition {
     margin: 20px;
+    margin-top: 0;
 }
-
 #clarityContainer {
     text-align: center;
     display: none;
 }
-
 #clarityDimensionContainer {
     display: grid;
     grid-template-columns: 275px 550px 275px;
     grid-template-rows: 100px 100px 100px;
+}
+#clarityEmoji {
+    margin-top: 50px;
 }
 
 /*
