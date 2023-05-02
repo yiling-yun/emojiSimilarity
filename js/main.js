@@ -430,6 +430,7 @@ function SHOW_DIFF_EMOJIS() {
         $("#instrStimBox").css("flex-direction", "row");
     }
     $("#instrStimBox img").css("margin", "100px 0px");
+    LOAD_BUFFERS(0); // buffer first practice trial
 }
 
 function HIDE_EMOJIS() {
@@ -481,6 +482,7 @@ function SHOW_INSTR_QUIZ() {
         ORDER_OF_DIMENSIONS[5],
         ORDER_OF_DIMENSIONS[6]
     ];
+    LOAD_BUFFERS(0); // buffer first trial
 }
 
 // function import_json(activeTrial, num){
@@ -549,12 +551,6 @@ function INIT_TRIAL(){
     //show progress
     let progress = Math.round((activeTrial.dimensionIndex + activeTrial.clarityIndex)/(activeTrial.trialN * (NUM_DIMENSIONS + EMOJIS_PER_PAGE)) * 100);
     $("#progress").html(progress + "% completed");
-
-    //buffer first trial
-    if (activeTrial.trialIndex == 0) {
-        LOAD_BUFFERS(0);
-        $("#trialNextBut").hide();
-    }
 
     //load trial
     UPDATE_INTERFACE();
