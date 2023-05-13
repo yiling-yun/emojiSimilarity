@@ -523,6 +523,7 @@ function SUBMIT_INSTR_QUIZ() {
 
 function SHOW_CONSENT() {
     $('#instrNextBut').hide();
+    $('#trialNextBut').hide();
     $('#consentBox').show();
     $(document).keyup(function(e) {
         if (e.key == ' ') {
