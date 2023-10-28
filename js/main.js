@@ -1,4 +1,4 @@
-const FORMAL = false;
+const FORMAL = true;
 const EXPERIMENT_NAME = "emoji";
 const VISIT_FILE = 'visit_' + EXPERIMENT_NAME + '.txt';
 const SUBJ_NUM_FILE = 'subjNum_' + EXPERIMENT_NAME + '.txt';
@@ -6,7 +6,7 @@ const TRIAL_FILE = "trial_" + EXPERIMENT_NAME + ".txt";
 const ATTRITION_FILE = 'attrition_' + EXPERIMENT_NAME + '.txt';
 const SUBJ_FILE = 'subj_' + EXPERIMENT_NAME + '.txt';
 const SAVING_DIR_HOME = '/var/www-data-experiments/cvlstudy_data/YY/'+EXPERIMENT_NAME;
-const SAVING_DIR = FORMAL ? SAVING_DIR_HOME+'/formal' : SAVING_DIR_HOME+'/testing';
+const SAVING_DIR = FORMAL ? SAVING_DIR_HOME+'/formal_rating' : SAVING_DIR_HOME+'/testing_rating';
 const COMPLETION_URL = "https://ucla.sona-systems.com/webstudy_credit.aspx?experiment_id=2338&credit_token=f36782a1039345a7af15837ca9592180&survey_code=";
 const SUBJ_NUM_SCRIPT = 'php/subjNum.php';
 const SAVING_SCRIPT = 'php/save.php';
@@ -361,8 +361,7 @@ instr_text[10] = "Let's try a few times on the next page!";
 instr_text[11] = "";
 instr_text[12] = "We hope that was clear!<br /><br />By the way, you don't need to spend too much time thinking about what to choose. Just follow your intuition.";
 instr_text[13] = "The next page is a quick instruction quiz. (It's very simple!)";
-instr_text[14] = "";
-instr_text[15] = "Great! You can press SPACE to start. Please focus after you start. (Don't switch to other windows or tabs!).<br><br>Please try your best, but please also know that this task is supposed to be hard; so don't worry if you find it difficult!";
+instr_text[14] = "Great! You can press SPACE to start. Please focus after you start. (Don't switch to other windows or tabs!).<br><br>Please try your best, but please also know that this task is supposed to be hard; so don't worry if you find it difficult!";
 
 const INSTR_FUNC_DICT = {
     0: SHOW_INSTR,
@@ -659,7 +658,7 @@ function NEXT_TRIAL() {
         // store correct ratings for the corresponding dimension
 
         if (ORDER_OF_DIMENSIONS[activeTrial.dimensionIndex % NUM_DIMENSIONS] == 0) {
-            activeTrial.visualComplexity = GET_RADIO_VALUES();        
+            activeTrial.visualComplexity = GET_RADIO_VALUES();
         }
 
         if (ORDER_OF_DIMENSIONS[activeTrial.dimensionIndex % NUM_DIMENSIONS] == 1) {
@@ -688,7 +687,7 @@ function NEXT_TRIAL() {
 
     // go to next set of emojis
     if (
-        activeTrial.dimensionIndex % NUM_DIMENSIONS == 0 && 
+        activeTrial.dimensionIndex % NUM_DIMENSIONS == 0 &&
         activeTrial.clarityIndex % EMOJIS_PER_PAGE == 0
     ) {
         //save current trial data
@@ -702,7 +701,7 @@ function NEXT_TRIAL() {
         if (activeTrial.trialIndex < activeTrial.trialN) {
             $("#stimuliBox").hide();
             $("#trialNextBut").hide();
-            
+
             CLEAR_RADIO_BUTTONS();
             setTimeout(INIT_TRIAL, activeTrial.intertrialInterval);
         }
@@ -742,7 +741,7 @@ function UPDATE_INTERFACE() {
     activeTrial.emojiOne = activeTrial.trialInput[emojiIndex];
     activeTrial.emojiTwo = activeTrial.trialInput[1 + emojiIndex];
     activeTrial.emojiThree = activeTrial.trialInput[2 + emojiIndex];
-    
+
     // if next dimension is emotional valence dimension, set up buffer image
     if (ORDER_OF_DIMENSIONS[(activeTrial.dimensionIndex % NUM_DIMENSIONS) + 1] == 3) {
         $('#emotionImageBuffer').attr('src', 'emotionalValence.png');
@@ -796,7 +795,7 @@ function UPDATE_INTERFACE() {
         else {
             $(".emotionDimension").hide();
             $("#scaleNumbersContainer").show();
-            $("input[type='radio']").css('margin', 'auto');        
+            $("input[type='radio']").css('margin', 'auto');
         }
     }
 
