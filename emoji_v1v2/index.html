@@ -69,10 +69,10 @@
     <div class="pageBox" id="quizBox">
         <div class="bold">What is your job in this experiment?</div>
         <label><div class="option"><input class="radio" type="radio" name="quiz" value="forgot" /><p class='option-text'>Select this option if you do not remember the instructions</p></div></label>
-        <label><div class="option"><input class="radio" type="radio" name="quiz" value="pleasant" /><p class="option-text">Choose the emoji that is the most pleasant among the three</p></div></label>
-        <label><div class="option"><input class="radio" type="radio" name="quiz" value="unpleasant" /><p class="option-text">Choose the emoji that is the most unpleasant among the three</p></div></label>
-        <label><div class="option"><input class="radio" type="radio" name="quiz" value="complex" /><p class="option-text">Choose the emoji that is the most complex among the three</p></div></label>
-        <label><div class="option"><input class="radio" type="radio" name="quiz" value="different" /><p class="option-text">Choose the emoji that is the most different among the three</p></div></label>
+        <label><div class="option"><input class="radio" type="radio" name="quiz" value="order" /><p class="option-text">Rate the emojis based on how much you like them</p></div></label>
+        <label><div class="option"><input class="radio" type="radio" name="quiz" value="singlePrompt" /><p class="option-text">Rate each emoji only based on frequency of use</p></div></label>
+        <label><div class="option"><input class="radio" type="radio" name="quiz" value="similar" /><p class="option-text">Rate each emoji in accordance to how similar they are to each other</p></div></label>
+        <label><div class="option"><input class="radio" type="radio" name="quiz" value="ratePrompt" /><p class="option-text">Rate each emoji in accordance to the prompt provided</p></div></label>
         <button onclick='SUBMIT_INSTR_QUIZ()' id="instrQSubmitBut">SUBMIT</button>
         <p class="warning" id="quizWarning"></p>
     </div>
@@ -80,16 +80,115 @@
     <!--======== TASK ========-->
     <div class="pageBox" id="taskBox">
         <p id="progress"></p>
-        <p id="prompt">Please select the odd-one-out emoji.</p>
         <div id="stimuliBox">
-            <img id="leftEmoji" src="stim/blank.png" onclick=SELECT(this) alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'>
-            <img id="middleEmoji" src="stim/blank.png" onclick=SELECT(this) alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'>
-            <img id="rightEmoji" src="stim/blank.png" onclick=SELECT(this) alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'>
+            <p id="dimensionQuestion"></p>
+            <div id="allDimensionsContainer">
+                <!-- ROW 1 OF GRID -->
+                <div></div> <!-- Empty div to fill up grid row -->
+                <p class="scaleDescription lowerScale bottomOfGrid">very simple</p>
+                <img id="emotionImage" class="emotionDimension" src="stim/blank.png" alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'/>
+                <ul id="scaleNumbersContainer" class="bottomOfGrid">
+                    <li>1</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li>4</li>
+                    <li>5</li>
+                    <li>6</li>
+                    <li>7</li>
+                </ul>
+                <p class="scaleDescription upperScale bottomOfGrid">very complex</p>
+                <p class="scaleDescription bottomOfGrid">I don't know this emoji</p>
+                <!-- ROW 2 OF GRID -->
+                <img id="firstEmoji" class="emojiImg firstEmoji" src="stim/blank.png" alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'/>
+                <div class="firstEmoji"></div>
+                <div class="scaleContainer firstEmoji">
+                    <input type="radio" name="rating1" value="1" />
+                    <input type="radio" name="rating1" value="2" />
+                    <input type="radio" name="rating1" value="3" />
+                    <input type="radio" name="rating1" value="4" />
+                    <input type="radio" name="rating1" value="5" />
+                    <input type="radio" name="rating1" value="6" />
+                    <input type="radio" name="rating1" value="7" />
+                    <input class="emotionDimension" type="radio" name="rating1" value="8" />
+                    <input class="emotionDimension" type="radio" name="rating1" value="9" />
+                </div>
+                <div class="firstEmoji"></div>
+                <input class="firstEmoji" type="radio" name="rating1" value="0" />
+                <!-- ROW 3 OF GRID -->
+                <img id="secondEmoji" class="emojiImg secondEmoji" src="stim/blank.png" alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'/>
+                <div class="secondEmoji"></div>
+                <div class="scaleContainer secondEmoji">
+                    <input type="radio" name="rating2" value="1" />
+                    <input type="radio" name="rating2" value="2" />
+                    <input type="radio" name="rating2" value="3" />
+                    <input type="radio" name="rating2" value="4" />
+                    <input type="radio" name="rating2" value="5" />
+                    <input type="radio" name="rating2" value="6" />
+                    <input type="radio" name="rating2" value="7" />
+                    <input class="emotionDimension" type="radio" name="rating2" value="8" />
+                    <input class="emotionDimension" type="radio" name="rating2" value="9" />
+                </div>
+                <div class="secondEmoji"></div>
+                <input class="secondEmoji" type="radio" name="rating2" value="0" />
+                <!-- ROW 4 OF GRID -->
+                <img id="thirdEmoji" class="emojiImg thirdEmoji" src="stim/blank.png" alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'/>
+                <div class="thirdEmoji"></div>
+                <div class="scaleContainer thirdEmoji">
+                    <input type="radio" name="rating3" value="1" />
+                    <input type="radio" name="rating3" value="2" />
+                    <input type="radio" name="rating3" value="3" />
+                    <input type="radio" name="rating3" value="4" />
+                    <input type="radio" name="rating3" value="5" />
+                    <input type="radio" name="rating3" value="6" />
+                    <input type="radio" name="rating3" value="7" />
+                    <input class="emotionDimension" type="radio" name="rating3" value="8" />
+                    <input class="emotionDimension" type="radio" name="rating3" value="9" />
+                </div>
+                <div class="thirdEmoji"></div>
+                <input class="thirdEmoji" type="radio" name="rating3" value="0" />
+            </div>
+            <div id="clarityContainer">
+                <img id="clarityEmoji" src="stim/blank.png" alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'/>
+                <p id="emojiDefinition"></p>
+                <div id="clarityDimensionContainer">
+                    <!-- ROW 1 OF GRID -->
+                    <p class="bottomOfGrid">The emoji does not represent the meaning at all</p>
+                    <ul id="scaleNumbersContainer" class="bottomOfGrid">
+                        <li>1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>5</li>
+                        <li>6</li>
+                        <li>7</li>
+                    </ul>
+                    <p class="bottomOfGrid">The emoji represents the meaning very well</p>
+                    <!-- ROW 2 OF GRID -->
+                    <div></div>
+                    <div class="scaleContainer">
+                        <input type="radio" name="rating5" value="1" />
+                        <input type="radio" name="rating5" value="2" />
+                        <input type="radio" name="rating5" value="3" />
+                        <input type="radio" name="rating5" value="4" />
+                        <input type="radio" name="rating5" value="5" />
+                        <input type="radio" name="rating5" value="6" />
+                        <input type="radio" name="rating5" value="7" />
+                    </div>
+                    <div></div>
+                    <!-- ROW 3 OF GRID -->
+                    <div></div>
+                    <div>
+                        <label style="display: block;">I don't know this emoji</label>
+                        <input type="radio" name="rating5" value="0" />
+                    </div>
+                </div>
+            </div>
         </div>
         <div id="bufferBox">
-            <img id="leftEmojiBuffer" src="stim/blank.png" alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'>
-            <img id="middleEmojiBuffer" src="stim/blank.png" alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'>
-            <img id="rightEmojiBuffer" src="stim/blank.png" alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'>
+            <img id="emotionImageBuffer" src="stim/blank.png" alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'/>
+            <img id="firstEmojiBuffer" src="stim/blank.png" alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'/>
+            <img id="secondEmojiBuffer" src="stim/blank.png" alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'/>
+            <img id="thirdEmojiBuffer" src="stim/blank.png" alt='Image Error: Please contact the experimenter at yiling.yun@g.ucla.edu with the phrase "IMG-ERROR".'/>
         </div>
         <button class="instrBut" id="trialNextBut" onclick=NEXT_TRIAL()>NEXT</button>
     </div>
@@ -139,7 +238,7 @@
         <button class='button' id="endExptBut" onclick='go_to_completion_page()'>END</button>
         <div class='debriefing-area'>
             <strong>Debriefing Sheet</strong><br />
-            We are studying how humans represent objects and concepts. We are studying emojis because they contain rich visual information and are commonly used in linguistic contexts. We are testing it using a similarity judgment task. Two emojis can be similar in multiple ways: color, shape, meaning, etc.<br /><br />
+            We are studying how humans represent objects and concepts. We are studying emojis because they contain rich visual information and are commonly used in linguistic contexts. We are testing it using a rating task. There are many ways to measure how someone interprets an emoji: clarity, complexity, familiarity, etc.<br /><br />
 
             If you have any questions, please feel free to contact the researcher Hongjing Lu at hongjing@g.ucla.edu.
         </div>
