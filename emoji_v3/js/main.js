@@ -13,13 +13,13 @@ const SAVING_SCRIPT = 'php/save.php';
 const ID_GET_VARIABLE_NAME = 'id';
 
 //stimuli
-const EXPT_N = 46;
+const EXPT_N = 50; //xxx: total number of versions (ie, largest expt number in input/)
 const STIM_PATH = 'stim/';
 const INSTR_IMG_LIST = ['blank.png','maximize_window.png','no_music.png','ucla.png'];
 const INTERTRIAL_INTERVAL = 500; //ms
 const ONE_EMOJI_EXAMPLE = "3.png";
-const THREE_EMOJI_EXAMPLE = ["71.png", "3.png", "888.png"];
-const DIFF_EMOJIS = ["514.png", "659.png", "1021.png", "866.png", "918.png", "134.png", "1552.png"];
+const THREE_EMOJI_EXAMPLE = ["73.png", "3.png", "888.png"]; //xxx: changed from 71 (frown face) to 73 (shock face) since 71 is being tested in v3
+const DIFF_EMOJIS = ["514.png", "659.png", "1021.png", "866.png", "918.png", "135.png", "1552.png"]; //xxx: changed from 134 (red heard) to 135 (orange heart) since 134 is being tested in v3
 const PRAC_STIM_PATH = STIM_PATH + 'test/';
 const PRAC_TRIAL_INPUT = {
     "0": [1, 4, 895],
@@ -39,10 +39,6 @@ const TRIAL_INPUT = {
 //xxx: ignore the following commented part
 // // const exptVerToManuallyAssign = [6, 19, 20, 23, 24, 39, 43, 21, 27, 36, 37, 38, 18];
 // // const subjNumBefore = 51;
-// // const exptVerToManuallyAssign = [23, 24, 18];
-// // const subjNumBefore = 63;
-// const exptVerToManuallyAssign = [35, 41, 12, 19, 37, 3];
-// const subjNumBefore = 114;
 
 // criteria
 const VIEWPORT_MIN_W = 800;
