@@ -1,13 +1,14 @@
 const FORMAL = false;
 const EXPERIMENT_NAME = "emoji";
+const VERSION = "v3";
 const VISIT_FILE = 'visit_' + EXPERIMENT_NAME + '.txt';
 const SUBJ_NUM_FILE = 'subjNum_' + EXPERIMENT_NAME + '.txt';
 const TRIAL_FILE = "trial_" + EXPERIMENT_NAME + ".txt";
 const ATTRITION_FILE = 'attrition_' + EXPERIMENT_NAME + '.txt';
 const SUBJ_FILE = 'subj_' + EXPERIMENT_NAME + '.txt';
 const SAVING_DIR_HOME = '/var/www-data-experiments/cvlstudy_data/YY/'+EXPERIMENT_NAME;
-const SAVING_DIR = FORMAL ? SAVING_DIR_HOME+'/formal' : SAVING_DIR_HOME+'/testing';
-const COMPLETION_URL = "https://ucla.sona-systems.com/webstudy_credit.aspx?experiment_id=2338&credit_token=f36782a1039345a7af15837ca9592180&survey_code=";
+const SAVING_DIR = FORMAL ? SAVING_DIR_HOME+'/formal_'+ VERSION: SAVING_DIR_HOME+'/testing_'+ VERSION;
+const COMPLETION_URL = "https://ucla.sona-systems.com/webstudy_credit.aspx?experiment_id=2551&credit_token=2c695112761d495dbef763d79bd08dd7&survey_code=";
 const SUBJ_NUM_SCRIPT = 'php/subjNum.php';
 const SAVING_SCRIPT = 'php/save.php';
 const ID_GET_VARIABLE_NAME = 'id';
@@ -18,23 +19,16 @@ const STIM_PATH = 'stim/';
 const INSTR_IMG_LIST = ['blank.png','maximize_window.png','no_music.png','ucla.png'];
 const INTERTRIAL_INTERVAL = 500; //ms
 const ONE_EMOJI_EXAMPLE = "3.png";
-const THREE_EMOJI_EXAMPLE = ["73.png", "3.png", "888.png"]; //xxx: changed from 71 (frown face) to 73 (shock face) since 71 is being tested in v3
-const DIFF_EMOJIS = ["514.png", "659.png", "1021.png", "866.png", "918.png", "135.png", "1552.png"]; //xxx: changed from 134 (red heard) to 135 (orange heart) since 134 is being tested in v3
+const THREE_EMOJI_EXAMPLE = ["73.png", "3.png", "888.png"]; //changed from 71 (frown face) to 73 (shock face) since 71 is being tested in v3
+const DIFF_EMOJIS = ["514.png", "659.png", "1021.png", "866.png", "918.png", "135.png", "1552.png"]; //changed from 134 (red heard) to 135 (orange heart) since 134 is being tested in v3
 const PRAC_STIM_PATH = STIM_PATH + 'test/';
 const PRAC_TRIAL_INPUT = {
-    "0": [1, 4, 895],
-    "1": [1391, 1395, 1024],
-    "2": [548, 541, 516]
+    "0": [2, 5, 9], "1": [129, 138, 69], "2": [23, 157, 179] //0: three faces, 1: two hearts one face, 2: two gestures one face
 };
 const TEST_STIM_PATH = STIM_PATH + 'test/';
 //xxx: uncommented the following section for testing purposes
 const TRIAL_INPUT = {
-    "0": ["545", "289", "1298"],
-    "1": ["992", "331", "855"],
-    "2": ["1020", "159", "720"],
-    "3": ["331", "1223", "545"],
-    "4": ["720", "1206", "245"],
-    "5": ["1141", "1140", "68"]
+    "0": [4, 76, 72], "1": [78, 162, 191], "2": [75, 1, 128], "3": [19, 87, 83], "4": [7, 260, 70]
 };
 //xxx: ignore the following commented part
 // // const exptVerToManuallyAssign = [6, 19, 20, 23, 24, 39, 43, 21, 27, 36, 37, 38, 18];
@@ -58,16 +52,16 @@ let subj, instr, practice, test, activeTrial;
 $(document).ready(function() {
     subj = new Subject(subj_options);
     //xxx: commented to show on local
-    // subj.id = subj.getID(ID_GET_VARIABLE_NAME);
+    subj.id = subj.getID(ID_GET_VARIABLE_NAME);
     subj.saveVisit();
-    // if (subj.phone) {
-    //     halt_experiment('It seems that you are using a touchscreen device or a phone. Please use a laptop or desktop instead.<br /><br />If you believe you have received this message in error, please contact the experimenter at yiling.yun@g.ucla.edu<br /><br />Otherwise, please switch to a laptop or a desktop computer for this experiment.');
-    // } else if (subj.validID){
+    if (subj.phone) {
+        halt_experiment('It seems that you are using a touchscreen device or a phone. Please use a laptop or desktop instead.<br /><br />If you believe you have received this message in error, please contact the experimenter at yiling.yun@g.ucla.edu<br /><br />Otherwise, please switch to a laptop or a desktop computer for this experiment.');
+    } else if (subj.validID){
         let ALL_IMG_LIST = INSTR_IMG_LIST.concat(THREE_EMOJI_EXAMPLE, DIFF_EMOJIS);
         load_img(0, STIM_PATH, ALL_IMG_LIST);
         instr = new instrObject(instr_options);
         instr.start();
-    // }
+    }
 });
 
 function halt_experiment(explanation) {
@@ -299,30 +293,30 @@ function SHOW_INSTR_QUIZ() {
     $('#quizBox').show();
     test = new trialObject(trial_options);
     //xxx: uncommented the following two lines to test in local
-    activeTrial.trialInput = TRIAL_INPUT;
-    activeTrial.trialN = Object.keys(activeTrial.trialInput).length;
+    // activeTrial.trialInput = TRIAL_INPUT;
+    // activeTrial.trialN = Object.keys(activeTrial.trialInput).length;
     //xxx: commented the following line to test in local
-    // import_json(test, subj.num);
+    import_json(test, subj.num);
     activeTrial = test;
 }
 
-// function import_json(activeTrial, num){
-//     let exptVer = num % EXPT_N;
+function import_json(activeTrial, num){
+    let exptVer = num % EXPT_N;
 
-//     if (exptVer == 0)
-//         exptVer = EXPT_N;
+    if (exptVer == 0)
+        exptVer = EXPT_N;
 
-//     // let exptVer = exptVerToManuallyAssign[(num - 1 - subjNumBefore) % exptVerToManuallyAssign.length];
+    // let exptVer = exptVerToManuallyAssign[(num - 1 - subjNumBefore) % exptVerToManuallyAssign.length];
 
-//     fetch("./input_v2/expt" + String(exptVer) + ".json")
-//         .then(response => {
-//             return response.json();
-//             })
-//             .then(data => {
-//                 activeTrial.trialInput = data;
-//                 activeTrial.trialN = Object.keys(activeTrial.trialInput).length;
-//             });
-// }
+    fetch("./input/expt" + String(exptVer) + ".json")
+        .then(response => {
+            return response.json();
+            })
+            .then(data => {
+                activeTrial.trialInput = data;
+                activeTrial.trialN = Object.keys(activeTrial.trialInput).length;
+            });
+}
 
 function SUBMIT_INSTR_QUIZ() {
     const CHOICE = $('input[name="quiz"]:checked').val();
@@ -406,7 +400,7 @@ function SELECT(ele) {
     $(ele).css("border", "solid black");
 
     //enable to proceed to the next trial
-    $("#trialNextBut").show(); //xxx: (Pro: no easy get through the trials) alt: press SPACE BAR (Pro: no visual bias)
+    $("#trialNextBut").show();
 }
 
 function NEXT_TRIAL() {

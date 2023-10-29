@@ -27,7 +27,6 @@ const PRAC_TRIAL_INPUT = {
     "2": [548, 541, 516]
 };
 const TEST_STIM_PATH = STIM_PATH + 'test/';
-//xxx: uncommented the following section for testing purposes
 const TRIAL_INPUT = {
     "0": ["545", "289", "1298"],
     "1": ["992", "331", "855"],
@@ -36,13 +35,12 @@ const TRIAL_INPUT = {
     "4": ["720", "1206", "245"],
     "5": ["1141", "1140", "68"]
 };
-//xxx: ignore the following commented part
-// // const exptVerToManuallyAssign = [6, 19, 20, 23, 24, 39, 43, 21, 27, 36, 37, 38, 18];
-// // const subjNumBefore = 51;
-// // const exptVerToManuallyAssign = [23, 24, 18];
-// // const subjNumBefore = 63;
-// const exptVerToManuallyAssign = [35, 41, 12, 19, 37, 3];
-// const subjNumBefore = 114;
+// const exptVerToManuallyAssign = [6, 19, 20, 23, 24, 39, 43, 21, 27, 36, 37, 38, 18];
+// const subjNumBefore = 51;
+// const exptVerToManuallyAssign = [23, 24, 18];
+// const subjNumBefore = 63;
+const exptVerToManuallyAssign = [35, 41, 12, 19, 37, 3];
+const subjNumBefore = 114;
 
 // criteria
 const VIEWPORT_MIN_W = 800;
@@ -61,17 +59,16 @@ let subj, instr, practice, test, activeTrial;
 
 $(document).ready(function() {
     subj = new Subject(subj_options);
-    //xxx: commented to show on local
-    // subj.id = subj.getID(ID_GET_VARIABLE_NAME);
+    subj.id = subj.getID(ID_GET_VARIABLE_NAME);
     subj.saveVisit();
-    // if (subj.phone) {
-    //     halt_experiment('It seems that you are using a touchscreen device or a phone. Please use a laptop or desktop instead.<br /><br />If you believe you have received this message in error, please contact the experimenter at yiling.yun@g.ucla.edu<br /><br />Otherwise, please switch to a laptop or a desktop computer for this experiment.');
-    // } else if (subj.validID){
+    if (subj.phone) {
+        halt_experiment('It seems that you are using a touchscreen device or a phone. Please use a laptop or desktop instead.<br /><br />If you believe you have received this message in error, please contact the experimenter at yiling.yun@g.ucla.edu<br /><br />Otherwise, please switch to a laptop or a desktop computer for this experiment.');
+    } else if (subj.validID){
         let ALL_IMG_LIST = INSTR_IMG_LIST.concat(THREE_EMOJI_EXAMPLE, DIFF_EMOJIS);
         load_img(0, STIM_PATH, ALL_IMG_LIST);
         instr = new instrObject(instr_options);
         instr.start();
-    // }
+    }
 });
 
 function halt_experiment(explanation) {
@@ -302,31 +299,9 @@ function SHOW_INSTR_QUIZ() {
     $('#instrBox').hide();
     $('#quizBox').show();
     test = new trialObject(trial_options);
-    //xxx: uncommented the following two lines to test in local
-    activeTrial.trialInput = TRIAL_INPUT;
-    activeTrial.trialN = Object.keys(activeTrial.trialInput).length;
-    //xxx: commented the following line to test in local
-    // import_json(test, subj.num);
+    import_json(test, subj.num);
     activeTrial = test;
 }
-
-// function import_json(activeTrial, num){
-//     let exptVer = num % EXPT_N;
-
-//     if (exptVer == 0)
-//         exptVer = EXPT_N;
-
-//     // let exptVer = exptVerToManuallyAssign[(num - 1 - subjNumBefore) % exptVerToManuallyAssign.length];
-
-//     fetch("./input_v2/expt" + String(exptVer) + ".json")
-//         .then(response => {
-//             return response.json();
-//             })
-//             .then(data => {
-//                 activeTrial.trialInput = data;
-//                 activeTrial.trialN = Object.keys(activeTrial.trialInput).length;
-//             });
-// }
 
 function SUBMIT_INSTR_QUIZ() {
     const CHOICE = $('input[name="quiz"]:checked').val();

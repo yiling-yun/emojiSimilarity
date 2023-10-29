@@ -80,51 +80,51 @@ let TRIAL_INPUT = {
     "0": 1394,
     "1": 1332,
     "2": 1331,
-    // "3": 861,
-    // "4": 855,
-    // "5": 904,
-    // "6": 926,
-    // "7": 943,
-    // "8": 1044,
-    // "9": 1126,
-    // "10": 992,
-    // "11": 949,
-    // "12": 966,
-    // "13": 627,
-    // "14": 836,
-    // "15": 442,
-    // "16": 288,
-    // "17": 331,
-    // "18": 289,
-    // "19": 245,
-    // "20": 363,
-    // "21": 378,
-    // "22": 1244,
-    // "23": 1141,
-    // "24": 1140,
-    // "25": 1206,
-    // "26": 1223,
-    // "27": 1183,
-    // "28": 1308,
-    // "29": 1298,
-    // "30": 159,
-    // "31": 677,
-    // "32": 707,
-    // "33": 720,
-    // "34": 480,
-    // "35": 68,
-    // "36": 70,
-    // "37": 761,
-    // "38": 1583,
-    // "39": 1098,
-    // "40": 108,
-    // "41": 1192,
-    // "42": 203,
-    // "43": 1020,
-    // "44": 1422,
-    // "45": 545,
-    // "46": 564,
-    // "47": 622,
+    "3": 861,
+    "4": 855,
+    "5": 904,
+    "6": 926,
+    "7": 943,
+    "8": 1044,
+    "9": 1126,
+    "10": 992,
+    "11": 949,
+    "12": 966,
+    "13": 627,
+    "14": 836,
+    "15": 442,
+    "16": 288,
+    "17": 331,
+    "18": 289,
+    "19": 245,
+    "20": 363,
+    "21": 378,
+    "22": 1244,
+    "23": 1141,
+    "24": 1140,
+    "25": 1206,
+    "26": 1223,
+    "27": 1183,
+    "28": 1308,
+    "29": 1298,
+    "30": 159,
+    "31": 677,
+    "32": 707,
+    "33": 720,
+    "34": 480,
+    "35": 68,
+    "36": 70,
+    "37": 761,
+    "38": 1583,
+    "39": 1098,
+    "40": 108,
+    "41": 1192,
+    "42": 203,
+    "43": 1020,
+    "44": 1422,
+    "45": 545,
+    "46": 564,
+    "47": 622,
 };
 
 // shuffle emoji orders
@@ -214,14 +214,14 @@ $(document).ready(function() {
     //xxx: commented to show on local
     subj.id = subj.getID(ID_GET_VARIABLE_NAME);
     subj.saveVisit();
-    if (subj.phone) {
-        halt_experiment('It seems that you are using a touchscreen device or a phone. Please use a laptop or desktop instead.<br /><br />If you believe you have received this message in error, please contact the experimenter at yiling.yun@g.ucla.edu<br /><br />Otherwise, please switch to a laptop or a desktop computer for this experiment.');
-    } else if (subj.validID){
+    // if (subj.phone) {
+    //     halt_experiment('It seems that you are using a touchscreen device or a phone. Please use a laptop or desktop instead.<br /><br />If you believe you have received this message in error, please contact the experimenter at yiling.yun@g.ucla.edu<br /><br />Otherwise, please switch to a laptop or a desktop computer for this experiment.');
+    // } else if (subj.validID){
         let ALL_IMG_LIST = INSTR_IMG_LIST.concat(THREE_EMOJI_EXAMPLE, DIFF_EMOJIS);
         load_img(0, STIM_PATH, ALL_IMG_LIST);
         instr = new instrObject(instr_options);
         instr.start();
-    }
+    // }
 });
 
 function halt_experiment(explanation) {
@@ -361,8 +361,7 @@ instr_text[10] = "Let's try a few times on the next page!";
 instr_text[11] = "";
 instr_text[12] = "We hope that was clear!<br /><br />By the way, you don't need to spend too much time thinking about what to choose. Just follow your intuition.";
 instr_text[13] = "The next page is a quick instruction quiz. (It's very simple!)";
-instr_text[14] = "";
-instr_text[15] = "Great! You can press SPACE to start. Please focus after you start. (Don't switch to other windows or tabs!).<br><br>Please try your best, but please also know that this task is supposed to be hard; so don't worry if you find it difficult!";
+instr_text[14] = "Great! You can press SPACE to start. Please focus after you start. (Don't switch to other windows or tabs!).<br><br>Please try your best, but please also know that this task is supposed to be hard; so don't worry if you find it difficult!";
 
 const INSTR_FUNC_DICT = {
     0: SHOW_INSTR,
@@ -374,13 +373,12 @@ const INSTR_FUNC_DICT = {
     6: HIDE_EMOJIS,
     7: SHOW_PRACTICE_RATING,
     8: SHOW_INSTR,
-    9: SHOW_INSTR,
-    10: SHOW_DIFF_EMOJIS,
+    9: SHOW_DIFF_EMOJIS,
+    10: HIDE_EMOJIS,
     11: SHOW_TASK,
-    12: HIDE_EMOJIS,
-    13: SHOW_INSTR,
-    14: SHOW_INSTR_QUIZ,
-    15: SHOW_CONSENT
+    12: SHOW_INSTR,
+    13: SHOW_INSTR_QUIZ,
+    14: SHOW_CONSENT
 };
 
 
@@ -431,12 +429,22 @@ function SHOW_DIFF_EMOJIS() {
         $("#instrStimBox").css("flex-direction", "row");
     }
     $("#instrStimBox img").css("margin", "100px 0px");
+    LOAD_BUFFERS(0); // buffer first practice trial
 }
 
 function HIDE_EMOJIS() {
     $("#instrStimBox").css("display", "none");
     practice = new trialObject(prac_trial_options);
     activeTrial = practice;
+    activeTrial.dimensionOrder = [
+        ORDER_OF_DIMENSIONS[0],
+        ORDER_OF_DIMENSIONS[1],
+        ORDER_OF_DIMENSIONS[2],
+        ORDER_OF_DIMENSIONS[3],
+        ORDER_OF_DIMENSIONS[4],
+        ORDER_OF_DIMENSIONS[5],
+        ORDER_OF_DIMENSIONS[6]
+    ];
 }
 
 function SHOW_PRACTICE_RATING() {
@@ -464,6 +472,16 @@ function SHOW_INSTR_QUIZ() {
     //xxx: commented the following line to test in local
     // import_json(test, subj.num);
     activeTrial = test;
+    activeTrial.dimensionOrder = [
+        ORDER_OF_DIMENSIONS[0],
+        ORDER_OF_DIMENSIONS[1],
+        ORDER_OF_DIMENSIONS[2],
+        ORDER_OF_DIMENSIONS[3],
+        ORDER_OF_DIMENSIONS[4],
+        ORDER_OF_DIMENSIONS[5],
+        ORDER_OF_DIMENSIONS[6]
+    ];
+    LOAD_BUFFERS(0); // buffer first trial
 }
 
 // function import_json(activeTrial, num){
@@ -504,6 +522,7 @@ function SUBMIT_INSTR_QUIZ() {
 
 function SHOW_CONSENT() {
     $('#instrNextBut').hide();
+    $('#trialNextBut').hide();
     $('#consentBox').show();
     $(document).keyup(function(e) {
         if (e.key == ' ') {
@@ -531,13 +550,7 @@ var instr_options = {
 function INIT_TRIAL(){
     //show progress
     let progress = Math.round((activeTrial.dimensionIndex + activeTrial.clarityIndex)/(activeTrial.trialN * (NUM_DIMENSIONS + EMOJIS_PER_PAGE)) * 100);
-    $("#progress").html(progress+ "% completed");
-
-    //buffer first trial
-    if (activeTrial.trialIndex == 0) {
-        LOAD_BUFFERS(0);
-        $("#trialNextBut").hide();
-    }
+    $("#progress").html(progress + "% completed");
 
     //load trial
     UPDATE_INTERFACE();
@@ -593,14 +606,8 @@ function LOAD_EMOJIS (emojiIndex) {
 function SELECT(ele) {
     //record response time
     var decideTime = Date.now();
-    activeTrial.rt = decideTime - activeTrial.startTime;
+    activeTrial.rt !== undefined ? activeTrial.rt.push(decideTime - activeTrial.startTime) : activeTrial.rt = [decideTime - activeTrial.startTime];
 
-    //record response
-    var choicePos = $(ele).attr('id');
-    var choice = "";
-    choice = activeTrial[choicePos];
-    activeTrial.choicePos = choicePos;
-    activeTrial.choice = choice;
     //enable to proceed to the next trial
     $("#trialNextBut").show(); //xxx: (Pro: no easy get through the trials) alt: press SPACE BAR (Pro: no visual bias)
 }
@@ -610,16 +617,13 @@ radioButtons.click(() => {
     const rating1Checked = $('input[name="rating1"]').is(":checked");
     const rating2Checked = $('input[name="rating2"]').is(":checked");
     const rating3Checked = $('input[name="rating3"]').is(":checked");
+    const ratingClarityChecked = $('input[name="rating5"]').is(":checked");
     if (
         (rating1Checked || $('.firstEmoji').is(":hidden")) &&
         (rating2Checked || $('.secondEmoji').is(":hidden")) &&
-        (rating3Checked || $('.thirdEmoji').is(":hidden"))
+        (rating3Checked || $('.thirdEmoji').is(":hidden")) ||
+        ratingClarityChecked
     ) {
-        SELECT(this);
-    }
-
-    const ratingClarityChecked = $('input[name="rating5"]').is(":checked");
-    if (ratingClarityChecked) {
         SELECT(this);
     }
 });
@@ -642,7 +646,7 @@ function GET_RADIO_VALUES() {
 function NEXT_TRIAL() {
     // if the current dimension is the clarity dimension
     if (ORDER_OF_DIMENSIONS[activeTrial.dimensionIndex % NUM_DIMENSIONS] == NUM_DIMENSIONS - 1) {
-        activeTrial.clarity !== undefined ? activeTrial.clarity.push($('input[name=rating5]:checked').val()) : activeTrial.clarity = [$('input[name=rating5]:checked').val()]
+        activeTrial.clarity !== undefined ? activeTrial.clarity.push($('input[name=rating5]:checked').val()) : activeTrial.clarity = [$('input[name=rating5]:checked').val()];
         if (
             (activeTrial.clarityIndex % EMOJIS_PER_PAGE == 0) ||
             (EMOJIS_PER_PAGE * activeTrial.trialIndex + (activeTrial.clarityIndex % EMOJIS_PER_PAGE)) >= activeTrial.numEmojis
@@ -688,7 +692,6 @@ function NEXT_TRIAL() {
     ) {
         //save current trial data
         var dataList = list_from_attribute_names(activeTrial, activeTrial.titles);
-        console.log(dataList);
         activeTrial.allData += list_to_formatted_string(dataList, ";");
 
         //update trialIndex
@@ -810,14 +813,13 @@ function UPDATE_INTERFACE() {
 // list of variables to be save, the variable names
 // trialobject uses these strings to get the variables in the code
 const TRIAL_TITLES = [
-    // TODO: save the question being asked  trial.rating = rating
-    // add
     "subjNum",
     "subjStartDate",
     "subjStartTime",
     "trialType",
     "trialIndex",
     "exptId",
+    "dimensionOrder",
     "emojiOne",
     "emojiTwo",
     "emojiThree",
@@ -828,7 +830,7 @@ const TRIAL_TITLES = [
     "emotionalArousal",
     "visualAppeal",
     "clarity",
-    "rt" // TODO: figure out when to start response time and when to finish response time
+    "rt"
 ];
 
 var trial_options = {

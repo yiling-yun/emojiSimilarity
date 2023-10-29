@@ -85,6 +85,24 @@ function shuffle_array(input_array) {
 //  #     # #     # #    ##    #    #       #    ##    #
 //   #####  ####### #     #    #    ####### #     #    #
 
+function import_json(activeTrial, num){
+    // let exptVer = num % EXPT_N;
+
+    // if (exptVer == 0)
+    //     exptVer = EXPT_N;
+
+    let exptVer = exptVerToManuallyAssign[(num - 1 - subjNumBefore) % exptVerToManuallyAssign.length];
+
+    fetch("./input_v2/expt" + String(exptVer) + ".json")
+        .then(response => {
+            return response.json();
+            })
+            .then(data => {
+                activeTrial.trialInput = data;
+                activeTrial.trialN = Object.keys(activeTrial.trialInput).length;
+            });
+}
+
 function enter_fullscreen() {
     let el = document.documentElement;
     if (el.requestFullscreen) {
