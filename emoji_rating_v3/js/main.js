@@ -1,5 +1,5 @@
 const FORMAL = false;
-const EXPERIMENT_NAME = "emoji";
+const EXPERIMENT_NAME = "emoji_rating_v3";
 const VISIT_FILE = 'visit_' + EXPERIMENT_NAME + '.txt';
 const SUBJ_NUM_FILE = 'subjNum_' + EXPERIMENT_NAME + '.txt';
 const TRIAL_FILE = "trial_" + EXPERIMENT_NAME + ".txt";
@@ -67,135 +67,74 @@ for (let i = 0; i < Object.keys(ORDER_OF_DIMENSIONS).length; i++) {
     ORDER_OF_DIMENSIONS[j] = temp;
 }
 
-const PRAC_TRIAL_INPUT = {
-    "0": 545,
-    "1": 68,
-    "2": 1331
-};
+const PRAC_TRIAL_INPUT = { "0": 68, "1": 108, "2": 245};
 const NUM_DIMENSIONS = DIMENSIONS.length;
 const EMOJIS_PER_PAGE = 3;
 const TEST_STIM_PATH = STIM_PATH + 'test/';
-//xxx: uncommented the following section for testing purposes
-let TRIAL_INPUT = {
-    "0": 1394,
-    "1": 1332,
-    "2": 1331,
-    "3": 861,
-    "4": 855,
-    "5": 904,
-    "6": 926,
-    "7": 943,
-    "8": 1044,
-    "9": 1126,
-    "10": 992,
-    "11": 949,
-    "12": 966,
-    "13": 627,
-    "14": 836,
-    "15": 442,
-    "16": 288,
-    "17": 331,
-    "18": 289,
-    "19": 245,
-    "20": 363,
-    "21": 378,
-    "22": 1244,
-    "23": 1141,
-    "24": 1140,
-    "25": 1206,
-    "26": 1223,
-    "27": 1183,
-    "28": 1308,
-    "29": 1298,
-    "30": 159,
-    "31": 677,
-    "32": 707,
-    "33": 720,
-    "34": 480,
-    "35": 68,
-    "36": 70,
-    "37": 761,
-    "38": 1583,
-    "39": 1098,
-    "40": 108,
-    "41": 1192,
-    "42": 203,
-    "43": 1020,
-    "44": 1422,
-    "45": 545,
-    "46": 564,
-    "47": 622,
+const EMOJI_FILENAME = [8,15,134,17,7];
+    // ,14,19,83,41,82,39,32,6,75,128,48,46,72,76,260,1,70,25,11,263,40,84,81,20,12,182,162,49,191,63,30,78,21,45,187,4,10,87,139,29,88,1001,90,165,127];
+const CLARITY_DES = [["Face with tears of joy:", "Widely used to show something is funny or pleasing. "],
+["Smiling face with heart-eyes:", "Often conveys enthusiastic feelings of love, infatuation, and adoration, e.g., I love/am in love with this person or thing."],
+["Heart on fire:", "For extreme or passionate forms of love or lust. Most representative of desire or lust. This emoji may also indicate a sense of burning a past love and moving on."],
+["Face blowing a kiss:", "May represent a kiss goodbye or good night and convey feelings of love and affection more generally. "],
+["Rolling on the floor laughing:", "Often conveys hysterical laughter more intense than Face With Tears of Joy."],
+// ["Smiling face with hearts:", "Expresses a range of happy, affectionate feelings, especially being in love."],
+// ["Smiling face:", "Conveys a wide range of warm, positive feelings, including love, happiness, and gratitude."],
+// ["Loudly crying face:", "May convey inconsolable grief but also other intense feelings, such as uncontrollable laughter, pride or overwhelming joy."],
+// ["Face with rolling eyes:", "As with the gesture of an eye-roll, commonly conveys moderate disdain, disapproval, frustration, or boredom. Tone varies, including playful, sassy, resentful, and sarcastic,as if saying Yeah, whatever."],
+// ["Crying face:", "May convey a moderate degree of sadness or pain, usually less intensely than Loudly Crying Face."],
+// ["Smirking face:", "Often used to convey flirtation or sexual innuendo."],
+// ["Thinking face:", "Intended to show a person pondering or deep in thought. Often used to question or scorn something or someone, as if saying Hmm, I don't know about that. Tone varies, including earnest, playful, puzzled, skeptical, and mocking."],
+// ["Grinning face with sweat:", "Intended to depict nerves or discomfort but commonly used to express a close call, as if saying Whew! and wiping sweat from the forehead. "],
+// ["Flushed face:", "Intended to depict such feelings as embarrassment, but meaning very widely varies. Other senses include flattery, surprise, disbelief, admiration, affection, and excitement."],
+// ["Two hearts:", "Can be used to display that \"love is in the air\""],
+// ["Drooling face:", "Often used to show desire for a person (sexy, attractive) or object (e.g., delicious food). May also represent someone is tired or sleeping."], 
+// ["Pensive face:", "May convey a variety of sad emotions, including feeling disappointed, hurt, or lonely. Less intense than other sad emojis like Loudly Crying Face and more introspective."], 
+// ["Face with open mouth:", "As if saying Wow! or Oh my! May convey such feelings as awe or disbelief, often milder or more ironic in tone than Face Screaming in Fear."], 
+// ["Pleading face:", "As if begging, pleading, or yearning (possibly even in a NSFW manner, depending on the context). May also represent adoration or feeling touched by a loving gesture."], 
+// ["Person facepalming:", "Used to display frustration or embarrassment at the ineptitude of a person or situation. May be used in a similar context to the acronym SMH (shaking my head)."], 
+// ["Grinning face:", "Often conveys general pleasure and good cheer or humor."], 
+// ["Slightly frowning face:", "Often conveys a mild degree of concern, disappointment, or sadness, but usually less intensely than Frowning Face."], 
+// ["Winking face with tongue:", "Often conveys a sense of fun, excitement, wackiness, buffoonery, or joking."], 
+// ["Winking face:", "Tone varies, including playful, affectionate, suggestive, or ironic."], 
+// ["Person shrugging:", "A person shrugging their shoulders to indicate a lack of knowledge about a particular topic, or a lack of care about the result of a situation."], 
+// ["Unamused face:", "May convey a variety of negative emotions, including irritation, displeasure, grumpiness, and skepticism, as if giving the side-eye."], 
+// ["Face screaming in fear:", "Its expression evokes Edvard Munch’s iconic painting The Scream. While intended to represent horror and fright, it commonly conveys such feelings as shock, awe, disbelief, and intense excitement, as a screaming fan."],
+// ["Sad but relieved face:", "Also known as Disappointed but Relieved Face, suggesting the smiley is upset but is grateful things didn’t turn out worse. Commonly conveys mild degrees of frustration and sadness."],
+// ["Kissing face with closed eyes:", "Commonly conveys sentiments of romantic love and affection."],
+// ["Smiling face with smiling eyes:", "Often expresses genuine happiness and warm, positive feelings."], 
+// ["Clapping hands:", "Two hands clapping emoji, which when used multiple times can be used as a round of applause."], 
+// ["OK hand:", "Represents \"I'm okay\" or \"yes, that's correct / good\"."], 
+// ["Sleeping face:", "Indicate it's sound asleep. May also represent boredom (slang, snooze)."], 
+// ["Flexed biceps:", "Represents strength, or working out."], 
+// ["Partying face:", " Used for celebrating joyous occasions (such as New Year's Eve or World Emoji Day) and enjoying good times more generally."], 
+// ["Face with hand over mouth:", "Displays most often with smiling eyes and/or blushing cheeks, suggesting coy laughter or embarrassment, as if cheekily saying Oops!"], 
+// ["Anguished face:", "Meaning widely varies, but may convey alarm, confusion, or sadness, as if gasping in shock or concern."], 
+// ["Kissing face with smiling eyes:", "Commonly conveys sentiments of love and affection. This emoji is sometimes taken to represent whistling, especially when paired with a musical note. May convey such feelings as surprise, admiration, contempt, or feigned innocence, as a person with hands in pocket casually whistling after wrongdoing, as if saying Nothing to look at here."], 
+// ["Relieved face:", "Conveys various pleasant feelings, including contentment, calm, peace, and relief. May also convey feelings of happiness or good-natured humor more generally."], 
+// ["Folded hands:", "Meaning please or thank you in Japanese culture. A common alternative use for this emoji is for prayer, using the same gesture as praying hands. It can also represent a respectful greeting or show of adoration many in Southeast Asian religions and cultures, such as the Hindu namaste or Buddhist añjali mudra."], 
+// ["Beaming face with smiling eyes:", "Often expresses a radiant, gratified happiness. Tone varies, including warm, silly, amused, or proud."],
+// ["Upside-down face:", "Commonly used to convey irony, sarcasm, joking, or a sense of goofiness or silliness."],
+// ["Disappointed face:", "May convey a variety of unhappy emotions, including disappointment, grief, stress, regret, and remorse."],
+// ["Purple heart:", "A purple heart emoji, often used alongside other colored hearts. Frequently used on Twitter in reference to Korean boy band Bangtan Sonyeondan, more commonly known as BTS."],
+// ["Hugging face:", "May be used to offer thanks and support, show love and care, or express warm, positive feelings more generally."],
+// ["Downcast face with sweat:", "Meaning widely varies, but commonly conveys a moderate degree of sadness, pain, frustration, or disappointment."],
+// ["Party popper:", "A party popper, as explodes in a shower of confetti and streamers at a celebration. Commonly used to convey congratulations and celebration"],
+// ["Tired face:", "While intended to represent tiredness, it commonly conveys various degrees and tones of frustration and sadness as well excitement and affection, as if it just can’t handle how great someone or something is."],
+// ["Victory hand:", "Most commonly known as a Peace Sign, but traditionally called as a Victory Hand."],
+// ["Revolving hearts:", "Hearts revolving around one or more other hearts."]
+];
+const PRAC_EMOJI_DESCRIPTION = {"68": ["Confused Face:", "A look of feeling unsure. While it can convey confusion or hesitation, it is also commonly used for slight sadness, disappointment, and frustration."],
+"108": ["Grinning Cat:", "A cartoon cat variant of Grinning Face. Often conveys general pleasure and good cheer or humor."],
+"245": ["Person Gesturing OK:", "A person with arms above their head, making an 'OK' sign (circle) with the whole body. No gender is specified."],
 };
-
-// shuffle emoji orders
-for (let i = 0; i < Object.keys(TRIAL_INPUT).length; i++) {
-    j = Math.floor(Math.random() * (i + 1));
-    let temp = TRIAL_INPUT[i];
-    TRIAL_INPUT[i] = TRIAL_INPUT[j]
-    TRIAL_INPUT[j] = temp;
-}
-
-const EMOJI_DEFINITIONS = {
-    "1394": ["Scorpio:", "This Zodiac Symbol represents a Scorpion."],
-    "1332": ["Men's Room:", "Generally used to indicate a male restroom."],
-    "1331": ["Wheelchair Symbol:", "The international symbol of access, used to denote a facility which has been designed with accessibility or people in wheelchairs in mind."],
-    "861": ["Fire Engine:", "An essential part of emergency services along with a police car or ambulance. May be on the way to put out a fire."],
-    "855": ["Tram Car:", "A form of public transport on rails, usually found on streets in cities or other urban areas. For short or medium-length journeys."],
-    "904": ["Airplane Arrival:", "A plane approaching a runway for landing."],
-    "926": ["One-Thirty:", "One-Thirty."],
-    "943": ["Ten O'Clock:", "Clock Face Ten O'Clock."],
-    "1044": ["Running Shirt:", "A singlet or running shirt."],
-    "1126": ["Speaker High Volume:", "Generally used as an icon to indicate the increasing of volume on a phone or computer."],
-    "992": ["Droplet:", "As of water, sweat, or tears. May be used for various types of liquid. May also be used to express sadness, as in  Crying Face, or for various liquid-based slang expressions (e.g., drip, \"exceptional style, swagger\")."],
-    "949": ["First Quarter Moon:", "May be used to represent the moon more generally, nighttime, outer space, and astronomy. May also be used to convey enchanting or eerie feelings."],
-    "966": ["Shooting Star:", "A small, fast meteor that burns up in the atmosphere. May be used for astronomical stars and other content concerning space. Also may be used for flair or flourish."],
-    "627": ["Bouquet:", "A bouquet of brightly colored flowers. Commonly used for Valentine's Day, Mother's Day, and other special occasions. May also be more generally used to express such sentiments as love, appreciation, and happiness."],
-    "836": ["Sunset:", "A beautiful view, featuring an orange sky, with the sun setting over the buildings of a city skyline."],
-    "442": ["Woman Mountain Biking:", "The female version of the Mountain Bicyclist emoji. A person (cyclist) who rides a mountain bike: a type of off-road bicycle."],
-    "288": ["Man Factory Worker.", ""],
-    "331": ["Woman Wearing Turban:", "The female version of the Man Wearing Turban emoji."],
-    "289": ["Woman Factory Worker:", "The female version of the Face With OK Gesture emoji. A person with arms above their head, making an 'OK' sign (circle) with the whole body."],
-    "245": ["Person Gesturing OK:", "A person with arms above their head, making an 'OK' sign (circle) with the whole body. No gender is specified."],
-    "363": ["Woman Vampire.", ""],
-    "378": ["Woman Getting Massage. ", ""],
-    "1244": ["Clipboard:", "A writing surface when standing. Commonly used for content concerning various types of documents and writing, especially in sports."],
-    "1141": ["Saxophone.", ""],
-    "1140": ["Radio:", "A classic portable radio, as used to listen to music, news, or sports. Commonly used for various content concerning radio, broadcasting, and music."],
-    "1206": ["Euro Banknote:", "A banded stack of euro banknotes, the paper currency of the European Union (EU). Commonly used for various content concerning wealth and money, not restricted to the EU."],
-    "1223": ["Postbox:", "A postbox (mailbox, letterbox) with a letter in its slot for collection. Used for various content concerning postal deliveries and email."],
-    "1183": ["Red Paper Lantern:", "A red paper lantern, as hangs outside an izakaya, a Japanese bar that serves drinks and casual food. May be used to represent various lights and lanterns as well as for its red color."],
-    "1308": ["Bathtub:", "Commonly used for various content concerning bathing, washing, cleaning, and bathrooms more generally."],
-    "1298": ["Door:", "A door, as to the entrance of a room, house, or new opportunity. May represent literal doors and related concepts (e.g., rooms, houses) but often used figuratively (e.g., opening or closing metaphorical doors)."],
-    "159": ["Hand with Fingers Splayed:", "Held in a manner that may indicate the number five."],
-    "677": ["Leafy Green:", "May be used to represent a variety of greens, including romaine lettuce, chard, and Chinese cabbage like bok choy, as commonly cooked in Asian cuisines. "],
-    "707": ["Egg:", "An egg, displayed as a chicken egg with a white or light brown shell. Commonly used at Easter time."],
-    "720": ["Rice Ball:", "A Japanese onigiri, a cone-shaped ball of white rice, a snack wrapped with a sheet of nori, or seaweed."],
-    "480": ["Family: Man, Woman, Girl, Girl:", "A family with a father, mother, and two daughters."],
-    "68": ["Confused Face:", "A look of feeling unsure. While it can convey confusion or hesitation, it is also commonly used for slight sadness, disappointment, and frustration."],
-    "70": ["Slightly Frowning Face:", "Often conveys a mild degree of concern, disappointment, or sadness, but usually less intensely than Frowning Face."],
-    "761": ["Wine Glass:", "Red wine served in a stemmed glass."],
-    "1583": ["Flag: Bermuda:", "The flag for Bermuda"],
-    "1098": ["Purse:", "A small pouch with a clasp, generally used to hold coins. Sometimes called a \"coin purse.\""],
-    "108": ["Grinning Cat:", "A cartoon cat variant of Grinning Face. Often conveys general pleasure and good cheer or humor."],
-    "1192": ["Notebook:", "A dark-colored, hardcover notebook, as used to write or take notes in school. Commonly used for various content concerning writing and schooling."],
-    "203": ["Bone:", "A bone which may be used for a dog to chew on, or as a part of the human body."],
-    "1020": ["3rd Place Medal.", ""],
-    "1422": ["Vibration Mode:", "An icon representing vibration mode on a mobile phone, indicating that a phone should be switched to silent and/or vibrate mode."],
-    "545": ["Goat:", "Frequently used as a visual shorthand for the slang expression GOAT, or the Great of All Time. Often considered one of the 12 animals of the Chinese zodiac. Also often used to represent Capricorn in the Western zodiac."],
-    "564": ["Bear:", "A friendly, cartoon-styled face of bear, looking straight ahead. Resembles a teddy bear. Often used with an affectionate tone."],
-    "622": ["Scorpion:", "A scorpion, an arachnid with lobster-like pincers and a stinging tail. Shown with six or, accurately, eight legs in addition to its pincers. Often used to represent  Scorpio in the Western zodiac."],
-};
-
-//xxx: ignore the following commented part
-// // const exptVerToManuallyAssign = [6, 19, 20, 23, 24, 39, 43, 21, 27, 36, 37, 38, 18];
-// // const subjNumBefore = 51;
-// // const exptVerToManuallyAssign = [23, 24, 18];
-// // const subjNumBefore = 63;
-// const exptVerToManuallyAssign = [35, 41, 12, 19, 37, 3];
-// const subjNumBefore = 114;
+const idx = [...Array(EMOJI_FILENAME.length).keys()]
+const TRIAL_INPUT = Object.fromEntries(idx.map(x => [x, EMOJI_FILENAME[x]]));
+const TEST_EMOJI_DEFINITIONS = Object.fromEntries(idx.map(x => [EMOJI_FILENAME[x], CLARITY_DES[x]]))
+const EMOJI_DEFINITIONS = Object.assign(TEST_EMOJI_DEFINITIONS, PRAC_EMOJI_DESCRIPTION);
 
 // criteria
-const VIEWPORT_MIN_W = 800;
+const VIEWPORT_MIN_W = 1000;
 const VIEWPORT_MIN_H = 600;
 
 let subj, instr, practice, test, activeTrial;
@@ -208,20 +147,19 @@ let subj, instr, practice, test, activeTrial;
 //  #    #  #       #     # #     #    #
 //  #     # ####### #     # ######     #
 
-
 $(document).ready(function() {
     subj = new Subject(subj_options);
     //xxx: commented to show on local
     subj.id = subj.getID(ID_GET_VARIABLE_NAME);
     subj.saveVisit();
-    // if (subj.phone) {
-    //     halt_experiment('It seems that you are using a touchscreen device or a phone. Please use a laptop or desktop instead.<br /><br />If you believe you have received this message in error, please contact the experimenter at yiling.yun@g.ucla.edu<br /><br />Otherwise, please switch to a laptop or a desktop computer for this experiment.');
-    // } else if (subj.validID){
+    if (subj.phone) {
+        halt_experiment('It seems that you are using a touchscreen device or a phone. Please use a laptop or desktop instead.<br /><br />If you believe you have received this message in error, please contact the experimenter at yiling.yun@g.ucla.edu<br /><br />Otherwise, please switch to a laptop or a desktop computer for this experiment.');
+    } else if (subj.validID){
         let ALL_IMG_LIST = INSTR_IMG_LIST.concat(THREE_EMOJI_EXAMPLE, DIFF_EMOJIS);
         load_img(0, STIM_PATH, ALL_IMG_LIST);
         instr = new instrObject(instr_options);
         instr.start();
-    // }
+    }
 });
 
 function halt_experiment(explanation) {
@@ -449,7 +387,8 @@ function HIDE_EMOJIS() {
 
 function SHOW_PRACTICE_RATING() {
     SHOW_INSTR_IMG('practice_rating.png');
-    $('#instrImg').css('width', '1000px');
+    $('#instrImg').css('width', '800px');
+    $('#instrImg').css('padding', '50px 0px');
 }
 
 function SHOW_TASK() {
@@ -467,7 +406,7 @@ function SHOW_INSTR_QUIZ() {
     $('#quizBox').show();
     test = new trialObject(trial_options);
     //xxx: uncommented the following two lines to test in local
-    activeTrial.trialInput = TRIAL_INPUT;
+    // activeTrial.trialInput = TRIAL_INPUT;
     activeTrial.trialN = Object.keys(activeTrial.trialInput).length;
     //xxx: commented the following line to test in local
     // import_json(test, subj.num);
@@ -744,12 +683,12 @@ function UPDATE_INTERFACE() {
 
     // if next dimension is emotional valence dimension, set up buffer image
     if (ORDER_OF_DIMENSIONS[(activeTrial.dimensionIndex % NUM_DIMENSIONS) + 1] == 3) {
-        $('#emotionImageBuffer').attr('src', 'emotionalValence.png');
+        $('#emotionImageBuffer').attr('src', 'stim/emotionalValence.png');
     }
 
     // if next dimension is emotional arousal dimension, set up buffer image
     if (ORDER_OF_DIMENSIONS[(activeTrial.dimensionIndex % NUM_DIMENSIONS) + 1] == 4) {
-        $('#emotionImageBuffer').attr('src', 'emotionalArousal.png');
+        $('#emotionImageBuffer').attr('src', 'stim/emotionalArousal.png');
     }
 
     // index of 6 equals the clarity dimension
@@ -777,11 +716,11 @@ function UPDATE_INTERFACE() {
         // index of 3 refers to emotional valence dimension
         if (currentDimensionIndex == 3) {
             $(".emotionDimension").show();
-            $("input[type='radio']").css('margin', '20px');
+            // $("input[type='radio']").css('margin', '20px');
             $("input[value='1']").css('margin-left', '48px');
 
             $("#scaleNumbersContainer").hide();
-            $('#emotionImage').attr('src', 'emotionalValence.png');
+            $('#emotionImage').attr('src', 'stim/emotionalValence.png');
         }
         // index of 4 refers to emotional arousal dimension
         else if (currentDimensionIndex == 4) {
@@ -790,7 +729,7 @@ function UPDATE_INTERFACE() {
             $("input[value='1']").css('margin-left', '48px');
 
             $("#scaleNumbersContainer").hide();
-            $('#emotionImage').attr('src', 'emotionalArousal.png');
+            $('#emotionImage').attr('src', 'stim/emotionalArousal.png');
         }
         else {
             $(".emotionDimension").hide();

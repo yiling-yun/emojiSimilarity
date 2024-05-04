@@ -32,7 +32,7 @@ body {
     display: none;
     position: relative;
     margin: 50px auto;
-    width: 1000px;
+    width: 800px;
 }
 .fixedBox {
     position: fixed;
@@ -70,7 +70,6 @@ body {
     display: none;
     position: relative;
     margin: 0 auto;
-    padding: 50px;
 }
 #instrText {
     display: block;
@@ -98,6 +97,9 @@ body {
 .formArea::-webkit-scrollbar-thumb {
     background: rgb(134, 134, 134);
 }
+#quizBox .radio {
+    margin: 0px;
+}
 /*
   #####  #     # #######  #####  ####### ### ####### #     #  #####
  #     # #     # #       #     #    #     #  #     # ##    # #     #
@@ -124,7 +126,7 @@ body {
 }
 .radio {
     position: absolute;
-    margin: 0;
+    margin: 0px;
     left: 13px;
     top: 50%;
     transform: translateY(-50%);
@@ -197,7 +199,7 @@ textarea {
     display: none;
 }
 #dimensionQuestion {
-    width: 1100px;
+    width: 800px;
     justify-content: center;
 }
 
@@ -205,7 +207,8 @@ textarea {
     display: grid;
     text-align: center;
     justify-self: center; /* all child elements will inherit this style */
-    grid-template-columns: 100px 150px 550px 150px 150px;
+    grid-template-columns: 100px 125px 550px 125px 100px;
+    /* grid-template-columns: 100px 150px 550px 150px 150px; */
     /* grid-template-rows: 140px 100px 100px 100px; */
     grid-auto-rows: 140px 100px 100px 100px;
 }
@@ -254,8 +257,8 @@ textarea {
 }
 
 #emojiDefinition {
-    margin: 20px;
-    margin-top: 0;
+    margin: 10p 0px;
+    width: 1000px;
 }
 #clarityContainer {
     text-align: center;
@@ -263,7 +266,8 @@ textarea {
 }
 #clarityDimensionContainer {
     display: grid;
-    grid-template-columns: 275px 550px 275px;
+    grid-template-columns: 250px 500px 250px;
+    /* grid-template-columns: 275px 550px 275px; */
     grid-template-rows: 100px 100px 100px;
 }
 #clarityEmoji {
