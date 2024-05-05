@@ -558,7 +558,6 @@ function NEXT_TRIAL() {
     //record response time
     var decideTime = Date.now();
     activeTrial.rt !== undefined ? activeTrial.rt.push(decideTime - activeTrial.startTime) : activeTrial.rt = [decideTime - activeTrial.startTime];
-    console.log(activeTrial.rt)
     // if the current dimension is the clarity dimension
     if (ORDER_OF_DIMENSIONS[activeTrial.dimensionIndex % NUM_DIMENSIONS] == NUM_DIMENSIONS - 1) {
         activeTrial.clarity !== undefined ? activeTrial.clarity.push($('input[name=rating5]:checked').val()) : activeTrial.clarity = [$('input[name=rating5]:checked').val()];
@@ -627,7 +626,7 @@ function NEXT_TRIAL() {
             $("#trialNextBut").hide();
             $("#taskBox").hide();
             // this is to check that the data is correct when saved
-            console.log(activeTrial.allData);
+            // console.log(activeTrial.allData);
             activeTrial.save();
             subj.detectVisibilityEnd();
             if (activeTrial.trialType == "practice") {
