@@ -8,7 +8,7 @@ const ATTRITION_FILE = 'attrition_' + PROJECT_NAME + '.txt';
 const SUBJ_FILE = 'subj_' + PROJECT_NAME + '.txt';
 const SAVING_DIR_HOME = '/var/www-data-experiments/cvlstudy_data/YY/' + PROJECT_NAME;
 const SAVING_DIR = FORMAL ? SAVING_DIR_HOME + '/formal_' + STUDY_NAME: SAVING_DIR_HOME + '/testing_' + STUDY_NAME;
-const COMPLETION_URL = "https://ucla.sona-systems.com/webstudy_credit.aspx?experiment_id=2338&credit_token=f36782a1039345a7af15837ca9592180&survey_code=";
+const COMPLETION_URL = "https://ucla.sona-systems.com/webstudy_credit.aspx?experiment_id=2551&credit_token=2c695112761d495dbef763d79bd08dd7&survey_code=";
 const SUBJ_NUM_SCRIPT = 'php/subjNum.php';
 const SAVING_SCRIPT = 'php/save.php';
 const ID_GET_VARIABLE_NAME = 'id';
