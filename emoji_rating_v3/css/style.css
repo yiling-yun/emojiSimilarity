@@ -45,10 +45,10 @@ body {
 .warning {
     display: none;
     padding: 30px 0;
-    color: #380000;
+    color: red;
 }
 .small-dim {
-    color: #222222;
+    color: brown;
     font-size: 18px;
     line-height: 36px;
 }
@@ -207,7 +207,7 @@ textarea {
     display: grid;
     text-align: center;
     justify-self: center; /* all child elements will inherit this style */
-    grid-template-columns: 100px 125px 550px 125px 100px;
+    grid-template-columns: 100px 150px 500px 150px 100px;
     /* grid-template-columns: 100px 150px 550px 150px 150px; */
     /* grid-template-rows: 140px 100px 100px 100px; */
     grid-auto-rows: 140px 100px 100px 100px;
@@ -250,7 +250,7 @@ textarea {
 #emotionImage {
     display: flex;
     align-self: end;
-    width: 550px;
+    width: 500px;
 }
 .emotionDimension {
     display: none;

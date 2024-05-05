@@ -1,19 +1,19 @@
 const FORMAL = false;
-const EXPERIMENT_NAME = "emoji_rating_v3";
-const VISIT_FILE = 'visit_' + EXPERIMENT_NAME + '.txt';
-const SUBJ_NUM_FILE = 'subjNum_' + EXPERIMENT_NAME + '.txt';
-const TRIAL_FILE = "trial_" + EXPERIMENT_NAME + ".txt";
-const ATTRITION_FILE = 'attrition_' + EXPERIMENT_NAME + '.txt';
-const SUBJ_FILE = 'subj_' + EXPERIMENT_NAME + '.txt';
-const SAVING_DIR_HOME = '/var/www-data-experiments/cvlstudy_data/YY/'+EXPERIMENT_NAME;
-const SAVING_DIR = FORMAL ? SAVING_DIR_HOME+'/formal_rating' : SAVING_DIR_HOME+'/testing_rating';
+const PROJECT_NAME = "emoji";
+const STUDY_NAME = "rating_v3";
+const VISIT_FILE = 'visit_' + PROJECT_NAME + '.txt';
+const SUBJ_NUM_FILE = 'subjNum_' + PROJECT_NAME + '.txt';
+const TRIAL_FILE = "trial_" + PROJECT_NAME + ".txt";
+const ATTRITION_FILE = 'attrition_' + PROJECT_NAME + '.txt';
+const SUBJ_FILE = 'subj_' + PROJECT_NAME + '.txt';
+const SAVING_DIR_HOME = '/var/www-data-experiments/cvlstudy_data/YY/' + PROJECT_NAME;
+const SAVING_DIR = FORMAL ? SAVING_DIR_HOME + '/formal_' + STUDY_NAME: SAVING_DIR_HOME + '/testing_' + STUDY_NAME;
 const COMPLETION_URL = "https://ucla.sona-systems.com/webstudy_credit.aspx?experiment_id=2338&credit_token=f36782a1039345a7af15837ca9592180&survey_code=";
 const SUBJ_NUM_SCRIPT = 'php/subjNum.php';
 const SAVING_SCRIPT = 'php/save.php';
 const ID_GET_VARIABLE_NAME = 'id';
 
 //stimuli
-const EXPT_N = 46;
 const STIM_PATH = 'stim/';
 const INSTR_IMG_LIST = ['blank.png','maximize_window.png','no_music.png','ucla.png'];
 const INTERTRIAL_INTERVAL = 500; //ms
@@ -71,59 +71,57 @@ const PRAC_TRIAL_INPUT = { "0": 68, "1": 108, "2": 245};
 const NUM_DIMENSIONS = DIMENSIONS.length;
 const EMOJIS_PER_PAGE = 3;
 const TEST_STIM_PATH = STIM_PATH + 'test/';
-const EMOJI_FILENAME = [8,15,134,17,7];
-    // ,14,19,83,41,82,39,32,6,75,128,48,46,72,76,260,1,70,25,11,263,40,84,81,20,12,182,162,49,191,63,30,78,21,45,187,4,10,87,139,29,88,1001,90,165,127];
+const EMOJI_FILENAME = [8,15,134,17,7,14,19,83,41,82,39,32,6,75,128,48,46,72,76,260,1,70,25,11,263,40,84,81,20,12,182,162,49,191,63,30,78,21,45,187,4,10,87,139,29,88,1001,90,165,127];
 const CLARITY_DES = [["Face with tears of joy:", "Widely used to show something is funny or pleasing. "],
 ["Smiling face with heart-eyes:", "Often conveys enthusiastic feelings of love, infatuation, and adoration, e.g., I love/am in love with this person or thing."],
 ["Heart on fire:", "For extreme or passionate forms of love or lust. Most representative of desire or lust. This emoji may also indicate a sense of burning a past love and moving on."],
 ["Face blowing a kiss:", "May represent a kiss goodbye or good night and convey feelings of love and affection more generally. "],
 ["Rolling on the floor laughing:", "Often conveys hysterical laughter more intense than Face With Tears of Joy."],
-// ["Smiling face with hearts:", "Expresses a range of happy, affectionate feelings, especially being in love."],
-// ["Smiling face:", "Conveys a wide range of warm, positive feelings, including love, happiness, and gratitude."],
-// ["Loudly crying face:", "May convey inconsolable grief but also other intense feelings, such as uncontrollable laughter, pride or overwhelming joy."],
-// ["Face with rolling eyes:", "As with the gesture of an eye-roll, commonly conveys moderate disdain, disapproval, frustration, or boredom. Tone varies, including playful, sassy, resentful, and sarcastic,as if saying Yeah, whatever."],
-// ["Crying face:", "May convey a moderate degree of sadness or pain, usually less intensely than Loudly Crying Face."],
-// ["Smirking face:", "Often used to convey flirtation or sexual innuendo."],
-// ["Thinking face:", "Intended to show a person pondering or deep in thought. Often used to question or scorn something or someone, as if saying Hmm, I don't know about that. Tone varies, including earnest, playful, puzzled, skeptical, and mocking."],
-// ["Grinning face with sweat:", "Intended to depict nerves or discomfort but commonly used to express a close call, as if saying Whew! and wiping sweat from the forehead. "],
-// ["Flushed face:", "Intended to depict such feelings as embarrassment, but meaning very widely varies. Other senses include flattery, surprise, disbelief, admiration, affection, and excitement."],
-// ["Two hearts:", "Can be used to display that \"love is in the air\""],
-// ["Drooling face:", "Often used to show desire for a person (sexy, attractive) or object (e.g., delicious food). May also represent someone is tired or sleeping."], 
-// ["Pensive face:", "May convey a variety of sad emotions, including feeling disappointed, hurt, or lonely. Less intense than other sad emojis like Loudly Crying Face and more introspective."], 
-// ["Face with open mouth:", "As if saying Wow! or Oh my! May convey such feelings as awe or disbelief, often milder or more ironic in tone than Face Screaming in Fear."], 
-// ["Pleading face:", "As if begging, pleading, or yearning (possibly even in a NSFW manner, depending on the context). May also represent adoration or feeling touched by a loving gesture."], 
-// ["Person facepalming:", "Used to display frustration or embarrassment at the ineptitude of a person or situation. May be used in a similar context to the acronym SMH (shaking my head)."], 
-// ["Grinning face:", "Often conveys general pleasure and good cheer or humor."], 
-// ["Slightly frowning face:", "Often conveys a mild degree of concern, disappointment, or sadness, but usually less intensely than Frowning Face."], 
-// ["Winking face with tongue:", "Often conveys a sense of fun, excitement, wackiness, buffoonery, or joking."], 
-// ["Winking face:", "Tone varies, including playful, affectionate, suggestive, or ironic."], 
-// ["Person shrugging:", "A person shrugging their shoulders to indicate a lack of knowledge about a particular topic, or a lack of care about the result of a situation."], 
-// ["Unamused face:", "May convey a variety of negative emotions, including irritation, displeasure, grumpiness, and skepticism, as if giving the side-eye."], 
-// ["Face screaming in fear:", "Its expression evokes Edvard Munch’s iconic painting The Scream. While intended to represent horror and fright, it commonly conveys such feelings as shock, awe, disbelief, and intense excitement, as a screaming fan."],
-// ["Sad but relieved face:", "Also known as Disappointed but Relieved Face, suggesting the smiley is upset but is grateful things didn’t turn out worse. Commonly conveys mild degrees of frustration and sadness."],
-// ["Kissing face with closed eyes:", "Commonly conveys sentiments of romantic love and affection."],
-// ["Smiling face with smiling eyes:", "Often expresses genuine happiness and warm, positive feelings."], 
-// ["Clapping hands:", "Two hands clapping emoji, which when used multiple times can be used as a round of applause."], 
-// ["OK hand:", "Represents \"I'm okay\" or \"yes, that's correct / good\"."], 
-// ["Sleeping face:", "Indicate it's sound asleep. May also represent boredom (slang, snooze)."], 
-// ["Flexed biceps:", "Represents strength, or working out."], 
-// ["Partying face:", " Used for celebrating joyous occasions (such as New Year's Eve or World Emoji Day) and enjoying good times more generally."], 
-// ["Face with hand over mouth:", "Displays most often with smiling eyes and/or blushing cheeks, suggesting coy laughter or embarrassment, as if cheekily saying Oops!"], 
-// ["Anguished face:", "Meaning widely varies, but may convey alarm, confusion, or sadness, as if gasping in shock or concern."], 
-// ["Kissing face with smiling eyes:", "Commonly conveys sentiments of love and affection. This emoji is sometimes taken to represent whistling, especially when paired with a musical note. May convey such feelings as surprise, admiration, contempt, or feigned innocence, as a person with hands in pocket casually whistling after wrongdoing, as if saying Nothing to look at here."], 
-// ["Relieved face:", "Conveys various pleasant feelings, including contentment, calm, peace, and relief. May also convey feelings of happiness or good-natured humor more generally."], 
-// ["Folded hands:", "Meaning please or thank you in Japanese culture. A common alternative use for this emoji is for prayer, using the same gesture as praying hands. It can also represent a respectful greeting or show of adoration many in Southeast Asian religions and cultures, such as the Hindu namaste or Buddhist añjali mudra."], 
-// ["Beaming face with smiling eyes:", "Often expresses a radiant, gratified happiness. Tone varies, including warm, silly, amused, or proud."],
-// ["Upside-down face:", "Commonly used to convey irony, sarcasm, joking, or a sense of goofiness or silliness."],
-// ["Disappointed face:", "May convey a variety of unhappy emotions, including disappointment, grief, stress, regret, and remorse."],
-// ["Purple heart:", "A purple heart emoji, often used alongside other colored hearts. Frequently used on Twitter in reference to Korean boy band Bangtan Sonyeondan, more commonly known as BTS."],
-// ["Hugging face:", "May be used to offer thanks and support, show love and care, or express warm, positive feelings more generally."],
-// ["Downcast face with sweat:", "Meaning widely varies, but commonly conveys a moderate degree of sadness, pain, frustration, or disappointment."],
-// ["Party popper:", "A party popper, as explodes in a shower of confetti and streamers at a celebration. Commonly used to convey congratulations and celebration"],
-// ["Tired face:", "While intended to represent tiredness, it commonly conveys various degrees and tones of frustration and sadness as well excitement and affection, as if it just can’t handle how great someone or something is."],
-// ["Victory hand:", "Most commonly known as a Peace Sign, but traditionally called as a Victory Hand."],
-// ["Revolving hearts:", "Hearts revolving around one or more other hearts."]
-];
+["Smiling face with hearts:", "Expresses a range of happy, affectionate feelings, especially being in love."],
+["Smiling face:", "Conveys a wide range of warm, positive feelings, including love, happiness, and gratitude."],
+["Loudly crying face:", "May convey inconsolable grief but also other intense feelings, such as uncontrollable laughter, pride or overwhelming joy."],
+["Face with rolling eyes:", "As with the gesture of an eye-roll, commonly conveys moderate disdain, disapproval, frustration, or boredom. Tone varies, including playful, sassy, resentful, and sarcastic,as if saying Yeah, whatever."],
+["Crying face:", "May convey a moderate degree of sadness or pain, usually less intensely than Loudly Crying Face."],
+["Smirking face:", "Often used to convey flirtation or sexual innuendo."],
+["Thinking face:", "Intended to show a person pondering or deep in thought. Often used to question or scorn something or someone, as if saying Hmm, I don't know about that. Tone varies, including earnest, playful, puzzled, skeptical, and mocking."],
+["Grinning face with sweat:", "Intended to depict nerves or discomfort but commonly used to express a close call, as if saying Whew! and wiping sweat from the forehead. "],
+["Flushed face:", "Intended to depict such feelings as embarrassment, but meaning very widely varies. Other senses include flattery, surprise, disbelief, admiration, affection, and excitement."],
+["Two hearts:", "Can be used to display that \"love is in the air\""],
+["Drooling face:", "Often used to show desire for a person (sexy, attractive) or object (e.g., delicious food). May also represent someone is tired or sleeping."], 
+["Pensive face:", "May convey a variety of sad emotions, including feeling disappointed, hurt, or lonely. Less intense than other sad emojis like Loudly Crying Face and more introspective."], 
+["Face with open mouth:", "As if saying Wow! or Oh my! May convey such feelings as awe or disbelief, often milder or more ironic in tone than Face Screaming in Fear."], 
+["Pleading face:", "As if begging, pleading, or yearning (possibly even in a NSFW manner, depending on the context). May also represent adoration or feeling touched by a loving gesture."], 
+["Person facepalming:", "Used to display frustration or embarrassment at the ineptitude of a person or situation. May be used in a similar context to the acronym SMH (shaking my head)."], 
+["Grinning face:", "Often conveys general pleasure and good cheer or humor."], 
+["Slightly frowning face:", "Often conveys a mild degree of concern, disappointment, or sadness, but usually less intensely than Frowning Face."], 
+["Winking face with tongue:", "Often conveys a sense of fun, excitement, wackiness, buffoonery, or joking."], 
+["Winking face:", "Tone varies, including playful, affectionate, suggestive, or ironic."], 
+["Person shrugging:", "A person shrugging their shoulders to indicate a lack of knowledge about a particular topic, or a lack of care about the result of a situation."], 
+["Unamused face:", "May convey a variety of negative emotions, including irritation, displeasure, grumpiness, and skepticism, as if giving the side-eye."], 
+["Face screaming in fear:", "Its expression evokes Edvard Munch’s iconic painting The Scream. While intended to represent horror and fright, it commonly conveys such feelings as shock, awe, disbelief, and intense excitement, as a screaming fan."],
+["Sad but relieved face:", "Also known as Disappointed but Relieved Face, suggesting the smiley is upset but is grateful things didn’t turn out worse. Commonly conveys mild degrees of frustration and sadness."],
+["Kissing face with closed eyes:", "Commonly conveys sentiments of romantic love and affection."],
+["Smiling face with smiling eyes:", "Often expresses genuine happiness and warm, positive feelings."], 
+["Clapping hands:", "Two hands clapping emoji, which when used multiple times can be used as a round of applause."], 
+["OK hand:", "Represents \"I'm okay\" or \"yes, that's correct / good\"."], 
+["Sleeping face:", "Indicate it's sound asleep. May also represent boredom (slang, snooze)."], 
+["Flexed biceps:", "Represents strength, or working out."], 
+["Partying face:", " Used for celebrating joyous occasions (such as New Year's Eve or World Emoji Day) and enjoying good times more generally."], 
+["Face with hand over mouth:", "Displays most often with smiling eyes and/or blushing cheeks, suggesting coy laughter or embarrassment, as if cheekily saying Oops!"], 
+["Anguished face:", "Meaning widely varies, but may convey alarm, confusion, or sadness, as if gasping in shock or concern."], 
+["Kissing face with smiling eyes:", "Commonly conveys sentiments of love and affection. This emoji is sometimes taken to represent whistling, especially when paired with a musical note. May convey such feelings as surprise, admiration, contempt, or feigned innocence, as a person with hands in pocket casually whistling after wrongdoing, as if saying Nothing to look at here."], 
+["Relieved face:", "Conveys various pleasant feelings, including contentment, calm, peace, and relief. May also convey feelings of happiness or good-natured humor more generally."], 
+["Folded hands:", "Meaning please or thank you in Japanese culture. A common alternative use for this emoji is for prayer, using the same gesture as praying hands. It can also represent a respectful greeting or show of adoration many in Southeast Asian religions and cultures, such as the Hindu namaste or Buddhist añjali mudra."], 
+["Beaming face with smiling eyes:", "Often expresses a radiant, gratified happiness. Tone varies, including warm, silly, amused, or proud."],
+["Upside-down face:", "Commonly used to convey irony, sarcasm, joking, or a sense of goofiness or silliness."],
+["Disappointed face:", "May convey a variety of unhappy emotions, including disappointment, grief, stress, regret, and remorse."],
+["Purple heart:", "A purple heart emoji, often used alongside other colored hearts. Frequently used on Twitter in reference to Korean boy band Bangtan Sonyeondan, more commonly known as BTS."],
+["Hugging face:", "May be used to offer thanks and support, show love and care, or express warm, positive feelings more generally."],
+["Downcast face with sweat:", "Meaning widely varies, but commonly conveys a moderate degree of sadness, pain, frustration, or disappointment."],
+["Party popper:", "A party popper, as explodes in a shower of confetti and streamers at a celebration. Commonly used to convey congratulations and celebration"],
+["Tired face:", "While intended to represent tiredness, it commonly conveys various degrees and tones of frustration and sadness as well excitement and affection, as if it just can’t handle how great someone or something is."],
+["Victory hand:", "Most commonly known as a Peace Sign, but traditionally called as a Victory Hand."],
+["Revolving hearts:", "Hearts revolving around one or more other hearts."]];
 const PRAC_EMOJI_DESCRIPTION = {"68": ["Confused Face:", "A look of feeling unsure. While it can convey confusion or hesitation, it is also commonly used for slight sadness, disappointment, and frustration."],
 "108": ["Grinning Cat:", "A cartoon cat variant of Grinning Face. Often conveys general pleasure and good cheer or humor."],
 "245": ["Person Gesturing OK:", "A person with arms above their head, making an 'OK' sign (circle) with the whole body. No gender is specified."],
@@ -328,6 +326,7 @@ function SHOW_INSTR(){
 
 function SHOW_INSTR_IMG(file_name) {
     $('#instrImg').attr('src', 'stim/' + file_name);
+    $('#instrImg').css('width', '200px');
     $('#instrImg').css('display', 'block');
 }
 
@@ -405,11 +404,7 @@ function SHOW_INSTR_QUIZ() {
     $('#instrBox').hide();
     $('#quizBox').show();
     test = new trialObject(trial_options);
-    //xxx: uncommented the following two lines to test in local
-    // activeTrial.trialInput = TRIAL_INPUT;
     activeTrial.trialN = Object.keys(activeTrial.trialInput).length;
-    //xxx: commented the following line to test in local
-    // import_json(test, subj.num);
     activeTrial = test;
     activeTrial.dimensionOrder = [
         ORDER_OF_DIMENSIONS[0],
@@ -422,24 +417,6 @@ function SHOW_INSTR_QUIZ() {
     ];
     LOAD_BUFFERS(0); // buffer first trial
 }
-
-// function import_json(activeTrial, num){
-//     let exptVer = num % EXPT_N;
-
-//     if (exptVer == 0)
-//         exptVer = EXPT_N;
-
-//     // let exptVer = exptVerToManuallyAssign[(num - 1 - subjNumBefore) % exptVerToManuallyAssign.length];
-
-//     fetch("./input_v2/expt" + String(exptVer) + ".json")
-//         .then(response => {
-//             return response.json();
-//             })
-//             .then(data => {
-//                 activeTrial.trialInput = data;
-//                 activeTrial.trialN = Object.keys(activeTrial.trialInput).length;
-//             });
-// }
 
 function SUBMIT_INSTR_QUIZ() {
     const CHOICE = $('input[name="quiz"]:checked').val();
@@ -488,9 +465,8 @@ var instr_options = {
 
 function INIT_TRIAL(){
     //show progress
-    let progress = Math.round((activeTrial.dimensionIndex + activeTrial.clarityIndex)/(activeTrial.trialN * (NUM_DIMENSIONS + EMOJIS_PER_PAGE)) * 100);
+    let progress = Math.round((activeTrial.dimensionIndex + activeTrial.clarityIndex)/(activeTrial.trialN * NUM_DIMENSIONS + activeTrial.numEmojis) * 100);
     $("#progress").html(progress + "% completed");
-
     //load trial
     UPDATE_INTERFACE();
     activeTrial.startTime = Date.now();
@@ -543,10 +519,6 @@ function LOAD_EMOJIS (emojiIndex) {
 }
 
 function SELECT(ele) {
-    //record response time
-    var decideTime = Date.now();
-    activeTrial.rt !== undefined ? activeTrial.rt.push(decideTime - activeTrial.startTime) : activeTrial.rt = [decideTime - activeTrial.startTime];
-
     //enable to proceed to the next trial
     $("#trialNextBut").show(); //xxx: (Pro: no easy get through the trials) alt: press SPACE BAR (Pro: no visual bias)
 }
@@ -583,6 +555,10 @@ function GET_RADIO_VALUES() {
 }
 
 function NEXT_TRIAL() {
+    //record response time
+    var decideTime = Date.now();
+    activeTrial.rt !== undefined ? activeTrial.rt.push(decideTime - activeTrial.startTime) : activeTrial.rt = [decideTime - activeTrial.startTime];
+    console.log(activeTrial.rt)
     // if the current dimension is the clarity dimension
     if (ORDER_OF_DIMENSIONS[activeTrial.dimensionIndex % NUM_DIMENSIONS] == NUM_DIMENSIONS - 1) {
         activeTrial.clarity !== undefined ? activeTrial.clarity.push($('input[name=rating5]:checked').val()) : activeTrial.clarity = [$('input[name=rating5]:checked').val()];
@@ -627,7 +603,7 @@ function NEXT_TRIAL() {
     // go to next set of emojis
     if (
         activeTrial.dimensionIndex % NUM_DIMENSIONS == 0 &&
-        activeTrial.clarityIndex % EMOJIS_PER_PAGE == 0
+        (activeTrial.clarityIndex % EMOJIS_PER_PAGE == 0 || activeTrial.clarityIndex == activeTrial.numEmojis)
     ) {
         //save current trial data
         var dataList = list_from_attribute_names(activeTrial, activeTrial.titles);
@@ -635,6 +611,8 @@ function NEXT_TRIAL() {
 
         //update trialIndex
         activeTrial.trialIndex = activeTrial.trialIndex + 1;
+        activeTrial.clarity = [];
+        activeTrial.rt = [];
 
         //update interface if there are more trials
         if (activeTrial.trialIndex < activeTrial.trialN) {
@@ -649,11 +627,12 @@ function NEXT_TRIAL() {
             $("#trialNextBut").hide();
             $("#taskBox").hide();
             // this is to check that the data is correct when saved
-            // console.log(activeTrial.allData);
+            console.log(activeTrial.allData);
             activeTrial.save();
             subj.detectVisibilityEnd();
             if (activeTrial.trialType == "practice") {
                 $("#instrBox").show();
+                $("input[type='radio']").css('margin', 'auto');
                 instr.next();
             } else {
                 $("#questionsBox").show();
@@ -716,8 +695,8 @@ function UPDATE_INTERFACE() {
         // index of 3 refers to emotional valence dimension
         if (currentDimensionIndex == 3) {
             $(".emotionDimension").show();
-            // $("input[type='radio']").css('margin', '20px');
-            $("input[value='1']").css('margin-left', '48px');
+            $("input[type='radio']").css('margin', '18px 35px 18px 0px');
+            $("input[value='1']").css('margin-left', '42px');
 
             $("#scaleNumbersContainer").hide();
             $('#emotionImage').attr('src', 'stim/emotionalValence.png');
@@ -725,8 +704,8 @@ function UPDATE_INTERFACE() {
         // index of 4 refers to emotional arousal dimension
         else if (currentDimensionIndex == 4) {
             $(".emotionDimension").show();
-            $("input[type='radio']").css('margin', '20px');
-            $("input[value='1']").css('margin-left', '48px');
+            $("input[type='radio']").css('margin', '18px 35px 18px 0px');
+            $("input[value='1']").css('margin-left', '42px');
 
             $("#scaleNumbersContainer").hide();
             $('#emotionImage').attr('src', 'stim/emotionalArousal.png');
